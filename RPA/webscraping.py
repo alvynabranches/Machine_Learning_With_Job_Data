@@ -22,57 +22,60 @@ class Indeed():
         driver = webdriver.Chrome(webdriver_location)
 
         for i in range(start, end):
-            driver.get('https://www.indeed.co.in/jobs?q=&l='+location+'&start='+str(i))
-            driver.implicitly_wait(4)
+            try:
+                driver.get('https://www.indeed.co.in/jobs?q=&l='+location+'&start='+str(i))
+                driver.implicitly_wait(4)
 
-            for job in driver.find_elements_by_class_name('result'):
+                for job in driver.find_elements_by_class_name('result'):
 
-                soup = BeautifulSoup(job.get_attribute('innerHTML'),'html.parser')
+                    soup = BeautifulSoup(job.get_attribute('innerHTML'),'html.parser')
 
-                try:
-                    title = soup.find('a',class_='jobtitle').text.replace('\n','').strip()
-                except:
-                    title = None
+                    try:
+                        title = soup.find('a',class_='jobtitle').text.replace('\n','').strip()
+                    except:
+                        title = None
 
-                try:
-                    location = soup.find(class_='location').text
-                except:
-                    location = None
+                    try:
+                        location = soup.find(class_='location').text
+                    except:
+                        location = None
 
-                try:
-                    company = soup.find(class_='company').text.replace('\n','').strip()
-                except:
-                    company = None
+                    try:
+                        company = soup.find(class_='company').text.replace('\n','').strip()
+                    except:
+                        company = None
 
-                try:
-                    salary = soup.find(class_='salary').text.replace('\n','').strip()
-                except:
-                    salary = None
+                    try:
+                        salary = soup.find(class_='salary').text.replace('\n','').strip()
+                    except:
+                        salary = None
 
-                try:
-                    sponsored = soup.find(class_='sponsoredGray').text
-                    sponsored = 'Sponsored'
-                except:
-                    sponsored = 'Organic'
+                    try:
+                        sponsored = soup.find(class_='sponsoredGray').text
+                        sponsored = 'Sponsored'
+                    except:
+                        sponsored = 'Organic'
 
-                sum_div = job.find_element_by_xpath('./div[3]')
-                try:
-                    sum_div.click()
-                except:
-                    close_button = driver.find_elements_by_class_name('popover-x-button-close')[0]
-                    close_button.click()
-                    sum_div.click()
-                try:
-                    time = soup.find(class_='date').text
-                except:
-                    time = None
+                    sum_div = job.find_element_by_xpath('./div[3]')
+                    try:
+                        sum_div.click()
+                    except:
+                        close_button = driver.find_elements_by_class_name('popover-x-button-close')[0]
+                        close_button.click()
+                        sum_div.click()
+                    try:
+                        time = soup.find(class_='date').text
+                    except:
+                        time = None
 
-                try:
-                    job_desc = driver.find_element_by_id('vjs-desc').text
-                except:
-                    job_desc = None
-                finally:
-                    pass
+                    try:
+                        job_desc = driver.find_element_by_id('vjs-desc').text
+                    except:
+                        job_desc = None
+                    finally:
+                        pass
+            except:
+                print('page error')
 
                 df = df.append({'Title':title,'Location':location,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
         
