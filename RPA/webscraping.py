@@ -22,6 +22,7 @@ class Indeed():
         driver = webdriver.Chrome(webdriver_location)
 
         for i in range(start, end):
+            print(f'{start+i+1} / {end} Jobs Done')
             try:
                 driver.get('https://www.indeed.co.in/jobs?q=&l='+location+'&start='+str(i))
                 driver.implicitly_wait(4)
@@ -76,7 +77,7 @@ class Indeed():
                         pass
             except:
                 print('page error')
-
+            finally:
                 df = df.append({'Title':title,'Location':location,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
         
         n = str(datetime.datetime.now()).encode()
