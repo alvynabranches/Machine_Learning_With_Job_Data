@@ -10,7 +10,7 @@ df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','De
 class Indeed():
     
     @staticmethod
-    def get_data(start, end, location='India', webdriver_location='D:/A/3T_Project/chromedriver.exe'):
+    def get_jobs(start, end, location='India', webdriver_location='D:/A/3T_Project/chromedriver.exe'):
         '''
         start: The starting page of search to retrieve data from
         end: The ending page of search to retrieve data from
@@ -80,6 +80,6 @@ class Indeed():
                 df = df.append({'Title':title,'Location':location,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
         
         n = str(datetime.datetime.now()).encode()
-        n = hashlib.sha512(n).hexdigest().encode()
+        n = hashlib.md5(n).hexdigest().encode()
         n = str(n).replace("'", '') + '.xlsx'
         df.to_excel(n)
