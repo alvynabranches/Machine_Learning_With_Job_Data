@@ -79,8 +79,7 @@ class Indeed():
                 print('page error')
             finally:
                 df = df.append({'Title':title,'Location':location,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
-        
-        n = str(datetime.datetime.now()).encode()
-        n = hashlib.md5(n).hexdigest().encode()
-        n = str(n).replace("'", '') + '.xlsx'
-        df.to_excel(n)
+            
+            n = str(datetime.datetime.now()).encode()
+            n = str(hashlib.md5(n).hexdigest().encode()).replace("b'", '').replace("'", '') + '.xlsx'
+            df.to_excel(n)
