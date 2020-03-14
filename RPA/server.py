@@ -16,7 +16,6 @@ def threaded_function(start, end):
         Indeed.get_jobs(start, end, location='Maharashtra')
     except Exception as e:
         print(e)
-        break
 
 def multiple_threaded_function(start, end, no_of_threads):
     load_on_single_thread = abs((end - start) // no_of_threads)

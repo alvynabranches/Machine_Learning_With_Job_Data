@@ -10,8 +10,12 @@ def preprocess():
     while(True):
         s = perf_counter()
         files = []
+        df = pd.DataFrame()
         try:
-            df = pd.read_excel('indeed_results_new.xlsx')
+            try:
+                df = pd.read_excel('indeed_results_new.xlsx')
+            except:
+                df = pd.DataFrame()
             for n, file in enumerate(os.listdir('data/')):
                 if file.endswith('.xlsx'):
                     print(f'{n+1}, {file}')
