@@ -111,7 +111,14 @@ if __name__ == "__main__":
 	print("Fetching job details")
 	scraped_data = parse(keyword, place)
 	print("Writing data to output file")
-	try:
-		pd.to_csv(f'{keyword}-{place}-job-results.csv')
-	except Exception as e:
-		print(e)
+	
+	with open('%s-%s-job-results.csv' % (keyword, place), 'wb')as csvfile:
+		fieldnames = ['Name', 'Company', 'State',
+					  'City', 'Salary', 'Location', 'Url']
+		writer = csv.DictWriter(csvfile, fieldnames=fieldnames,quoting=csv.QUOTE_ALL)
+		writer.writeheader()
+		if scraped_data:
+			for data in scraped_data:
+				writer.writerow(data)
+		else:
+			print("Your search for %s, in %s does not match any jobs"%(keyword,place))
