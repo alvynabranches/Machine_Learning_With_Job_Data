@@ -1,7 +1,9 @@
 # Machine Learning With Job Data
 
-Web Scraping Done on Indeed Website. 
-Preprocessing has been done on the indeed dataset. 
-Data Visualization Will be done on this data
-Machine Learning is To Be Done on this data. 
-Deep Learning Algorithms will also be tried on this data.
+Web Scraping Done on Indeed Website. <br>
+Preprocessing has been done on the indeed dataset. <br>
+Data Visualization Will be done on this data <br>
+Machine Learning is To Be Done on this data. <br>
+Deep Learning Algorithms will also be tried on this data. <br>
+<br><br><br>
+[server.py](https://github.com/alvynabranches/Machine_Learning_With_Job_Data/blob/master/server.py) This the main file of the project
