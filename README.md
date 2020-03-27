@@ -6,4 +6,4 @@ Data Visualization Will be done on this data <br>
 Machine Learning is To Be Done on this data. <br>
 Deep Learning Algorithms will also be tried on this data. <br>
 <br><br><br>
-[server.py](https://github.com/alvynabranches/Machine_Learning_With_Job_Data/blob/master/server.py) This the main file of the project
+[server.py](https://github.com/alvynabranches/Machine_Learning_With_Job_Data/blob/master/server.py) This is the main file of the project
