@@ -9,6 +9,7 @@ import hashlib
 import multiprocessing as mp
 import pandas as pd
 import threaded
+import os
 
 df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
 
@@ -159,6 +160,10 @@ class Indeed():
 
             finally:
                 try:
+                    if os.path.isdir('./webscrapping/data'):
+                        pass
+                    else:
+                        os.mkdir('./webscrapping/data')
                     n = './webscrapping/data/' + str(hashlib.md5(str(datetime.now()).encode()).hexdigest().encode()).replace("b'", '').replace("'", '') + '.xlsx'
                     df.to_excel(n, index=False)
                 except Exception as e:
