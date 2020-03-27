@@ -16,7 +16,7 @@ df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','De
 class Indeed():
     
     @staticmethod
-    def get_jobs(start, end, location='Pune', query='', webdriver_location='D:/A/3T_Project/chromedriver.exe'):
+    def get_jobs(start, end, webdriver_location, location='Pune', query=''):
         '''
             start: The starting page of search to retrieve data from
             end: The ending page of search to retrieve data from
