@@ -1,20 +1,20 @@
 from webscrapping.preprocessing import merge_excel_files
-from webscrapping.multithreadwebscraping import threaded_function, multiple_threaded_function
+from webscrapping.multithreadwebscraping import multiple_threaded_function
+from locations import unique_locations, unique_pincodes
+from jobs import unique_jobs
 from datetime import datetime
-import time
+from time import perf_counter
+from pyspark import SparkContext, SparkConf
 
-start = time.perf_counter()
+# sc = SparkContext(conf=SparkConf().set('', ''))
 
-multiple_threaded_function(start=0, end=50, no_of_threads=4)
+start = perf_counter()
 
-merge_excel_files()
+# multiple_threaded_function(start=0, end=10, no_of_threads=2,location_list=['Mumbai', 'Pune'])
+# , job_list=unique_jobs
 
-finish = time.perf_counter()
+# merge_excel_files()
+
+finish = perf_counter()
 
 print(f'{finish-start:0.5f} Seconds Time Taken for Processing at {str(datetime.now())}')
-
-# 1. NCC -> Data Management
-# 2. Summer Internship -> LinuxWorld
-# 3. CoViD Internship -> Confirmation not sent yet
-# 4. Project -> Streaming -> Kafka
-# 5. Udacity Nanodegree -> Streaming Data
