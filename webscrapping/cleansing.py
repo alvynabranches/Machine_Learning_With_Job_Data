@@ -1,7 +1,9 @@
 def preprocessing_description(text):
-    text = str(text)
+    text = str(text).lower()
+
     for _ in range(100):
         text = text.replace('\n', ' ')
+
     for _ in range(10):
         text = text.replace('&', ' and ')
         text = text.replace('·', ' ')
@@ -36,18 +38,23 @@ def preprocessing_description(text):
         text = text.replace('–', ' ')
         text = text.replace('’', ' ')
         text = text.replace(',', '')
-    for _ in range(10):
-        text = text.replace("  ", ' ')
+
     for _ in range(3):
         text = text.replace(r'\uf0b7', ' ')
         text = text.replace('\uf0b7', ' ')
-        text = text.replace('Job Summary ', ' ')
-        text = text.replace('Job Description ', ' ')
+        text = text.replace('job summary ', ' ')
+        text = text.replace('job description ', ' ')
+        text = text.replace('salary ', ' ')
+        text = text.replace('rs ', ' ')
         text = text.replace('\\', ' ')
+    
+    for _ in range(50):
+        text = text.replace('  ', ' ')
+    
     text = text.lstrip().rstrip()
     return text
 
-def preprocessing_title_location_company(text):
+def preprocessing_company(text):
     text = str(text)
     for _ in range(10):
         text = text.replace('&', 'and')
@@ -82,6 +89,86 @@ def preprocessing_title_location_company(text):
         text = text.replace(':', ' ')
         text = text.replace('\\', ' ')
         
+    for _ in range(10):
+        text = text.replace("  ", ' ')
+    text = text.lstrip().rstrip()
+    return text
+
+def preprocessing_title(text):
+    text = str(text)
+    for _ in range(10):
+        text = text.replace('&', 'and')
+        text = text.replace("'", ' ')
+        text = text.replace('"', ' ')
+        text = text.replace('(', ' ')
+        text = text.replace(')', ' ')
+        text = text.replace('[', ' ')
+        text = text.replace(']', ' ')
+        text = text.replace('{', ' ')
+        text = text.replace('}', ' ')
+        text = text.replace('-', ' ')
+        text = text.replace('#', ' ')
+        text = text.replace('/', ' ')
+        text = text.replace('!', ' ')
+        text = text.replace('$', ' ')
+        text = text.replace('%', ' ')
+        text = text.replace('^', ' ')
+        text = text.replace('*', ' ')
+        text = text.replace('_', ' ')
+        text = text.replace('+', ' ')
+        text = text.replace('=', ' ')
+        text = text.replace('<', ' ')
+        text = text.replace('>', ' ')
+        text = text.replace('?', ' ')
+        text = text.replace('~', ' ')
+        text = text.replace('`', ' ')
+        text = text.replace('|', ' ')
+        text = text.replace(';', ' ')
+        text = text.replace('.', ' ')
+        text = text.replace(',', ' ')
+        text = text.replace(':', ' ')
+        text = text.replace('\\', ' ')
+        
+    for _ in range(10):
+        text = text.replace("  ", ' ')
+    text = text.lstrip().rstrip().lower()
+    return text
+
+def preprocessing_location(text):
+    text = str(text)
+    for _ in range(10):
+        text = text.replace('&', 'and')
+        text = text.replace("'", ' ')
+        text = text.replace('"', ' ')
+        text = text.replace('(', ' ')
+        text = text.replace(')', ' ')
+        text = text.replace('[', ' ')
+        text = text.replace(']', ' ')
+        text = text.replace('{', ' ')
+        text = text.replace('}', ' ')
+        text = text.replace('-', ' ')
+        text = text.replace('#', ' ')
+        text = text.replace('/', ' ')
+        text = text.replace('!', ' ')
+        text = text.replace('$', ' ')
+        text = text.replace('%', ' ')
+        text = text.replace('^', ' ')
+        text = text.replace('*', ' ')
+        text = text.replace('_', ' ')
+        text = text.replace('+', ' ')
+        text = text.replace('=', ' ')
+        text = text.replace('<', ' ')
+        text = text.replace('>', ' ')
+        text = text.replace('?', ' ')
+        text = text.replace('~', ' ')
+        text = text.replace('`', ' ')
+        text = text.replace('|', ' ')
+        text = text.replace(';', ' ')
+        text = text.replace('.', ' ')
+        text = text.replace(',', ' ')
+        text = text.replace(':', ' ')
+        text = text.replace('\\', ' ')
+
     for _ in range(10):
         text = text.replace("  ", ' ')
     text = text.lstrip().rstrip()
@@ -140,5 +227,6 @@ def salary_remove_unit(text):
     text = text.replace(' week', '')
     text = text.replace(' day', '')
     text = text.replace(' hour', '')
+
     text = text.lstrip().rstrip()
     return text

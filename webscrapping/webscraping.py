@@ -4,10 +4,13 @@ from datetime import datetime
 from datetime import timedelta
 from selenium import webdriver
 from time import perf_counter
+# from pyspark.sql import SparkSession
+# from pyspark.sql import Row
 
 import hashlib
 import pandas as pd
 import os
+import warnings
 
 from __init__ import download_directory
 
@@ -24,7 +27,8 @@ class Indeed():
             
             This is a static method hence will return the dataframe which is processed during the training
         '''
-        
+        warnings.filterwarnings('ignore')
+        # spark = SparkSession().appName('MongoDBIntegration').getOrCreate()
         df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
         driver = webdriver.Chrome(webdriver_location)
 
@@ -49,22 +53,22 @@ class Indeed():
                     try:
                         title = soup.find('a',class_='jobtitle').text.replace('\n','').strip()
                     except:
-                        title = None
+                        title = ''
 
                     try:
                         loc = soup.find(class_='location').text
                     except:
-                        loc = None
+                        loc = ''
 
                     try:
                         company = soup.find(class_='company').text.replace('\n','').strip()
                     except:
-                        company = None
+                        company = ''
 
                     try:
                         salary = soup.find(class_='salary').text.replace('\n','').strip()
                     except:
-                        salary = None
+                        salary = ''
                     
                     try:
                         sponsored = soup.find(class_='sponsoredGray').text
@@ -146,16 +150,17 @@ class Indeed():
                         elif _time == '30 days ago':
                             time = str(date.today() - timedelta(days=30))
                         else:
-                            time = None
+                            time = ''
                     except:
-                        time = None
+                        time = ''
 
                     try:
                         job_desc = driver.find_element_by_id('vjs-desc').text
                     except:
                         job_desc = None
                     df = df.append({'Title':title,'Location':location,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
-                    
+                    # data = Row(dict(Title=title, Location=location, Company=company, Salary=salary, Sponsored=sponsored, Description=job_desc, Time=time))
+                    # spark.createDataset(data)
             except Exception as e:
                 print(e)
 

@@ -2,8 +2,8 @@ from time import sleep, perf_counter
 import os
 import pandas as pd
 from datetime import datetime
+from preprocessing.preprocess_data import apply_preprocessing_on_fields
 
-from webscrapping.cleansing import preprocessing_description, preprocessing_title_location_company, preprocessing_salary, salary_remove_unit
 from __init__ import download_directory, webscrapping_directory
 
 def merge_excel_files():
