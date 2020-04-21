@@ -78,6 +78,13 @@ def apply_preprocessing_on_fields(df):
     df['Position_Junior'] = df['Title'].apply(lambda x: get_experience_junior(x))
     df['Position_Senior'] = df['Title'].apply(lambda x: get_experience_senior(x))
 
+    df['Internship'] = 0
+    for i in range(df.shape[0]):
+        if df['Description'][i].find('internship') != -1 or df['Description'][i].find('intern') != -1:
+            df['Internship'][i] = 1
+        if df['Title'][i].find('internship') != -1 or df['Description'][i].find('intern') != -1:
+            df['Internship'][i] = 1
+
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
 
     return df

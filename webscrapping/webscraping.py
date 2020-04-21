@@ -32,7 +32,6 @@ class Indeed():
         spark = SparkSession.builder.config('spark.mongodb.input.uri', spark_mongo_server_connection_string).config('spark.mongodb.input.uri', spark_mongo_server_connection_string).appName('MongoDBIntegration').getOrCreate()
         df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
         driver = webdriver.Chrome(webdriver_location)
-        _s = 0
         driver.maximize_window()
         title = ''
         loc = ''

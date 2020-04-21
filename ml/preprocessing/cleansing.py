@@ -271,8 +271,8 @@ def get_skills(text):
         skills += '|java'
     if text.find('kotlin') != -1:
         skills += '|kotlin'
-    if text.find('mongodb') != -1:
-        skills += '|mongo'
+    if text.find('mongodb') != -1 or text.find('mongo'):
+        skills += '|mongodb'
     if text.find('statistics') != -1:
         skills += '|statistics'
     if text.find('mathamatics') != -1 or text.find('maths') != -1:
@@ -346,7 +346,7 @@ def get_skills(text):
     if text.find('julia') != -1:
         skills += '|julia'
     if text.find('cloud computing') != -1:
-        skills += '|cloud computing'
+        skills += '|cloud'
     if text.find('google cloud platform') != -1 or text.find('gcp') != -1:
         skills += '|gcp'
     if text.find('blockchain') != -1:
@@ -357,6 +357,41 @@ def get_skills(text):
         skills += '|ai'
     if text.find('linux') != -1:
         skills += '|linux'
+    if text.find('software') != -1 and text.find('devol') != -1:
+        skills += '|software devlopment'
+    if text.find('redis') != -1:
+        skills += '|redis'
+    if text.find('groovy') != -1:
+        skills += '|groovy'
+    if text.find('elasticsearch') != -1:
+        skills += '|elasticsearch'
+    if text.find('cassandra') != -1:
+        skills += '|cassandra'
+    if text.find('bash') != -1:
+        skills += '|bash'
+    if text.find('unix') != -1:
+        skills += '|unix'
+    if text.find('ms sql') != -1:
+        skills += '|ms sql server'
+    if text.find('agile') != -1:
+        skills += '|agile'
+    if text.find('jira') != -1:
+        skills += '|jira'
+    if text.find('workfront') != -1:
+        skills += '|workfront'
+    if text.find('scrum') != -1:
+        skills += '|scrum'
+    if text.find('kanban') != -1:
+        skills += '|kanban'
+    if text.find('cloud services') != -1:
+        skills += '|cloud'
+    if text.find('vb script net') != -1:
+        skills += '|vb script net'
+    if text.find(' net') != -1:
+        skills += '|.net'
+    if text.find('microservices') != -1:
+        skills += '|microservices'
+    
     return skills
 
 def get_salary_average(text):
