@@ -4,8 +4,8 @@ from datetime import datetime
 from datetime import timedelta
 from selenium import webdriver
 from time import perf_counter
-# from pyspark.sql import SparkSession
-# from pyspark.sql import Row
+from pyspark.sql import SparkSession
+from pyspark.sql import Row
 
 import hashlib
 import pandas as pd
@@ -13,6 +13,7 @@ import os
 import warnings
 
 from __init__ import download_directory
+from __init__ import spark_mongo_server_connection_string
 
 df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
 
@@ -28,11 +29,17 @@ class Indeed():
             This is a static method hence will return the dataframe which is processed during the training
         '''
         warnings.filterwarnings('ignore')
-        # spark = SparkSession().appName('MongoDBIntegration').getOrCreate()
+        spark = SparkSession.builder.config('spark.mongodb.input.uri', spark_mongo_server_connection_string).config('spark.mongodb.input.uri', spark_mongo_server_connection_string).appName('MongoDBIntegration').getOrCreate()
         df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
         driver = webdriver.Chrome(webdriver_location)
 
-        title, loc, company, salary, sponsored, time, job_desc = None, None, None, None, None, None
+        title = None
+        loc = None
+        company = None
+        salary = None
+        sponsored = None
+        time = None
+        job_desc = None
         _s = 0
         driver.maximize_window()
         for i in range(start, end):
@@ -153,8 +160,8 @@ class Indeed():
                     except:
                         job_desc = None
                     df = df.append({'Title':title,'Location':location,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
-                    # data = Row(dict(Title=title, Location=location, Company=company, Salary=salary, Sponsored=sponsored, Description=job_desc, Time=time))
-                    # spark.createDataset(data)
+                    data = Row(dict(Title=title, Location=location, Company=company, Salary=salary, Sponsored=sponsored, Description=job_desc, Time=time))
+                    spark.createDataset(data).write.format('com.mongodb.spark.sql.DefaultSource').option('uri', spark_mongo_server_connection_string).mode('append').save()
             except Exception as e:
                 print(e)
 
@@ -163,7 +170,8 @@ class Indeed():
                     if not os.path.isdir(download_directory):
                         os.mkdir(download_directory)
                     n = download_directory + str(hashlib.md5(str(datetime.now()).encode()).hexdigest().encode()).replace("b'", '').replace("'", '') + '.xlsx'
-                    df.to_excel(n, index=False)
+                    if df.shape[0] != 0:
+                        df.to_excel(n, index=False)
                 except Exception as e:
                     print(e)
         driver.close()

@@ -6,14 +6,15 @@ from selenium import webdriver
 from time import perf_counter
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
-from __init__ import ip_address_and_port_no
 
 import hashlib
+import numpy as np
 import pandas as pd
 import os
 import warnings
 
 from __init__ import download_directory
+from __init__ import ip_address_and_port_no, db_name, col_name
 
 df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
 
@@ -29,22 +30,19 @@ class Indeed():
             This is a static method hence will return the dataframe which is processed during the training
         '''
         warnings.filterwarnings('ignore')
-        spark = SparkSession.builder.appName('MongoDBIntegration').config('spark.mongodb.input.uri', 'mongodb://'+ ip_address_and_port_no +'/spark_test.test').getOrCreate()
+        spark = SparkSession.builder.appName('MongoDBIntegration').config('spark.mongodb.input.uri', 'mongodb://'+ ip_address_and_port_no +'/' + db_name + '.' + col_name + '').config('spark.mongodb.output.uri', 'mongodb://'+ ip_address_and_port_no +'/' + db_name + '.' + col_name + '').getOrCreate()
         df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
         driver = webdriver.Chrome(webdriver_location)
-
-        title = None
-        loc = None
-        company = None
-        salary = None
-        sponsored = None
-        time = None
-        job_desc = None
         _s = 0
         driver.maximize_window()
         for i in range(start, end):
-            _s += 1
-            print(f'{_s} / {end-start} Jobs Processing')
+            title = None
+            loc = None
+            company = None
+            salary = None
+            sponsored = None
+            time = None
+            job_desc = None
             try:
                 driver.get('https://www.indeed.co.in/jobs?q='+ query +'&l='+location+'&start='+str(i))
                 
@@ -151,7 +149,7 @@ class Indeed():
                         elif _time == '30 days ago':
                             time = str(date.today() - timedelta(days=30))
                         else:
-                            time = ''
+                            time = str(date.today() - timedelta(days=np.random.randint(31, 181)))
                     except:
                         time = ''
 
@@ -161,9 +159,9 @@ class Indeed():
                         job_desc = None
                     df = df.append({'Title':title,'Location':location,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
                     data = Row(dict(Title=title, Location=location, Company=company, Salary=salary, Sponsored=sponsored, Description=job_desc, Time=time))
-                    spark.createDataset(data)
+                    spark.createDataset(data).write.format('com.mongodb.spark.sql.DefaultSource').option('uri', 'spark.mongodb.input.uri', 'mongodb://'+ ip_address_and_port_no +'/' + db_name + '.' + col_name + '').mode('append').save()
             except Exception as e:
-                print(e)
+                print(e.with_traceback)
 
             finally:
                 try:
@@ -172,5 +170,5 @@ class Indeed():
                     n = download_directory + str(hashlib.md5(str(datetime.now()).encode()).hexdigest().encode()).replace("b'", '').replace("'", '') + '.xlsx'
                     df.to_excel(n, index=False)
                 except Exception as e:
-                    print(e)
+                    print(e.with_traceback)
         driver.close()
