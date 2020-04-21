@@ -1,4 +1,4 @@
-version = '0.0.86'
+version = '0.0.100'
 chrome_version = '81'
 
 project_directory = './'
