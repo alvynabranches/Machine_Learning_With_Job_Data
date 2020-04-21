@@ -1,6 +1,8 @@
 import pandas as pd
 from warnings import filterwarnings
-from preprocessing.cleansing import preprocessing_description, preprocessing_title, preprocessing_company, preprocessing_location, preprocessing_salary, salary_remove_unit, get_skills
+from ml.preprocessing.cleansing import preprocessing_description, preprocessing_title, preprocessing_company
+from ml.preprocessing.cleansing import preprocessing_location, preprocessing_salary, salary_remove_unit, get_skills
+from ml.preprocessing.cleansing import get_salary_average, get_experience_senior, get_experience_junior
 
 def apply_preprocessing_on_fields(df):
     filterwarnings('ignore')
@@ -31,12 +33,7 @@ def apply_preprocessing_on_fields(df):
             df['Salary_Unit_Hour'][i] = 1
     
     df['Salary_New'] = df['Salary'].apply(lambda x: salary_remove_unit(x))
-    df['Salary_Average'] = 0
-    for i in range(len(df['Salary_New'])):
-        if len(df['Salary_New'][i].split()) == 2:
-            df['Salary_Average'][i] = int((int(df['Salary_New'][i].split()[0]) + int(df['Salary_New'][i].split()[1]))/2)
-        else:
-            df['Salary_Average'][i] = df['Salary_New'][i]
+    df['Salary_Average'] = df['Salary_New'].apply(lambda x: get_salary_average(x))
 
     df['Job_Type_Part_Time'] = 0
     df['Job_Type_Full_Time'] = 0
@@ -70,16 +67,19 @@ def apply_preprocessing_on_fields(df):
             df['Education_Bachelors'][i] = 1
         if df['Description'][i].find('masters degree') != -1:
             df['Education_Masters'][i] = 1
-        if df['Description'][i].find('doctoral') != -1 or df['Description'].find('doctorate'):
+        if df['Description'][i].find('doctoral') != -1 or df['Description'][i].find('doctorate'):
             df['Education_Doctorate'][i] = 1
-    
-    df['Skills_Description'] = ''
-    df['Skills_Title'] = ''
+        
     df['Skills_Description'] = df['Description'].apply(lambda x: get_skills(x))
     df['Skills_Title'] = df['Title'].apply(lambda x: get_skills(x))
     df['Skills'] = df['Skills_Description'] + df['Skills_Title']
     df['Skills'] = df['Skills'].apply(lambda x: x[1:])
+
+    df['Position_Junior'] = df['Title'].apply(lambda x: get_experience_junior(x))
+    df['Position_Senior'] = df['Title'].apply(lambda x: get_experience_senior(x))
     
+    df['Title_New'] = ''
+
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
 
     return df

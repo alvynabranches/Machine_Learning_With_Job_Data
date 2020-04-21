@@ -184,7 +184,6 @@ def preprocessing_salary(text):
         text = text.replace('"', ' ')
         text = text.replace(':', ' ')
         text = text.replace('–', ' ')
-        text = text.replace('.', ' ')
         text = text.replace('|', ' ')
         text = text.replace(';', ' ')
         text = text.replace('’', ' ')
@@ -236,7 +235,7 @@ def get_skills(text):
     skills = ''
     if text.find('python') != -1:
         skills += '|python'
-    if text.find('big') != -1 and text.find('data') != -1:
+    if text.find('big data') != -1 or text.find('bigdata') != -1:
         skills += '|big data'
     if text.find('hadoop') != -1:
         skills += '|hadoop'
@@ -302,7 +301,7 @@ def get_skills(text):
         skills += '|ux'
     if text.find('deep learning') != -1:
         skills += '|deep learning'
-    if text.find('machine learning') != -1:
+    if text.find('machine learning') != -1 or text.find(' ml ') != -1 or text.find(' ml') != -1 or text.find('ml '):
         skills += '|machine learning'
     if text.find(' c ') != -1:
         skills += '|c'
@@ -359,3 +358,26 @@ def get_skills(text):
     if text.find('linux') != -1:
         skills += '|linux'
     return skills
+
+def get_salary_average(text):
+    text = str(text)
+    if text != 'nan':
+        if len(text.split()) == 2:
+            return int((float(text.split()[0]) + float(text.split()[1]))/2)
+        else:
+            return int(text)
+    else:
+        return 0
+
+def get_experience_junior(text):
+    if text.find('jr') != -1 or text.find('junior') != -1:
+        return 1
+    else:
+        return 0
+
+def get_experience_senior(text):
+    if text.find('senior') != -1:
+        return 1
+    else:
+        return 0
+
