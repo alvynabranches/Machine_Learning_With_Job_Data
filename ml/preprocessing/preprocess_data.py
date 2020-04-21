@@ -31,7 +31,6 @@ def apply_preprocessing_on_fields(df):
             df['Salary_Unit_Hour'][i] = 1
     
     df['Salary_New'] = df['Salary'].apply(lambda x: salary_remove_unit(x))
-    
     df['Salary_Average'] = 0
     for i in range(len(df['Salary_New'])):
         if len(df['Salary_New'][i].split()) == 2:
@@ -51,31 +50,35 @@ def apply_preprocessing_on_fields(df):
     df['XP_Fresher'] = 0
     df['Gender_Male'] = 0
     df['Gender_Female'] = 0
-    
     for i in range(df.shape[0]):
         if df['Description'][i].find('male') != -1:
             df['Gender_Male'][i] = 1
         if df['Description'][i].find('female') != -1:
             df['Gender_Female'][i] = 1
     
-    df['tenth'] = 0
-    df['twelvth'] = 0
-    df['bachelors'] = 0
-    df['masters'] = 0
-    df['doctorate'] = 0
-
+    df['Education_Tenth'] = 0
+    df['Education_Twelvth'] = 0
+    df['Education_Bachelors'] = 0
+    df['Education_Masters'] = 0
+    df['Education_Doctorate'] = 0
     for i in range(df.shape[0]):
         if df['Description'][i].find(' 10 ') != -1 or df['Description'][i].find('10th') != -1:
-            df['tenth'] = 1
-        if df['Description'][i].find(' 12 ') != -1 or df['Descriptipn'][i].find('12th') != -1:
-            df['twelvth'] = 1
+            df['Education_Tenth'][i] = 1
+        if df['Description'][i].find(' 12 ') != -1 or df['Description'][i].find('12th') != -1 or df['Description'][i].find('higher secondary'):
+            df['Education_Twelvth'][i] = 1
         if df['Description'][i].find('bachelor degree') != -1:
-            df['bachelors'] = 1
-        if df['Description'].find('masters degree') != -1:
-            df['masters'] = 1
-        if df['Description'].find('doctoral') != -1 or df['Description'].find('doctorate'):
-            df['doctorate'] = 1
+            df['Education_Bachelors'][i] = 1
+        if df['Description'][i].find('masters degree') != -1:
+            df['Education_Masters'][i] = 1
+        if df['Description'][i].find('doctoral') != -1 or df['Description'].find('doctorate'):
+            df['Education_Doctorate'][i] = 1
     
+    df['Skills_Description'] = ''
+    df['Skills_Title'] = ''
+    df['Skills_Description'] = df['Description'].apply(lambda x: get_skills(x))
+    df['Skills_Title'] = df['Title'].apply(lambda x: get_skills(x))
+    df['Skills'] = df['Skills_Description'] + df['Skills_Title']
+    df['Skills'] = df['Skills'].apply(lambda x: x[1:])
     
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
 

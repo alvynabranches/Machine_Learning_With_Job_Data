@@ -256,6 +256,8 @@ def get_skills(text):
         skills += '|react.js'
     if text.find('angular js') != -1 or text.find('angularjs') != -1:
         skills += '|angular.js'
+    if text.find('node js') != -1 or text.find('nodejs') != -1:
+        skills += '|nodejs'
     if text.find('react native') != -1:
         skills += '|react native'
     if text.find('flume') != -1:
