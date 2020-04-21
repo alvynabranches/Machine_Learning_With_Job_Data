@@ -75,6 +75,8 @@ def apply_preprocessing_on_fields(df):
             df['masters'] = 1
         if df['Description'].find('doctoral') != -1 or df['Description'].find('doctorate'):
             df['doctorate'] = 1
+    
+    
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
 
     return df
