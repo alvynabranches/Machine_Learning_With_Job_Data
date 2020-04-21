@@ -25,7 +25,7 @@ def merge_excel_files():
         except Exception as e:
             print(e)
         e = perf_counter()
-        print(f"{pd.read_excel(project_directory +'indeed_results.xlsx').shape[0]} Items Found So Far at {datetime.now()}")
+        print(f"{pd.read_excel(project_directory + 'indeed_results.xlsx').shape[0]} Items Found So Far at {datetime.now()}")
         print(f"{round(e-s, 2)} Seconds Were Taken to Merge")
 
 merge_excel_files()
