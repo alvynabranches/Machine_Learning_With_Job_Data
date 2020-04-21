@@ -4,8 +4,9 @@ from datetime import datetime
 from datetime import timedelta
 from selenium import webdriver
 from time import perf_counter
-# from pyspark.sql import SparkSession
-# from pyspark.sql import Row
+from pyspark.sql import SparkSession
+from pyspark.sql import Row
+from __init__ import ip_address_and_port_no
 
 import hashlib
 import pandas as pd
@@ -28,7 +29,7 @@ class Indeed():
             This is a static method hence will return the dataframe which is processed during the training
         '''
         warnings.filterwarnings('ignore')
-        # spark = SparkSession().appName('MongoDBIntegration').getOrCreate()
+        spark = SparkSession.builder.appName('MongoDBIntegration').config('spark.mongodb.input.uri', 'mongodb://'+ ip_address_and_port_no +'/spark_test.test').getOrCreate()
         df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
         driver = webdriver.Chrome(webdriver_location)
 
@@ -159,8 +160,8 @@ class Indeed():
                     except:
                         job_desc = None
                     df = df.append({'Title':title,'Location':location,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
-                    # data = Row(dict(Title=title, Location=location, Company=company, Salary=salary, Sponsored=sponsored, Description=job_desc, Time=time))
-                    # spark.createDataset(data)
+                    data = Row(dict(Title=title, Location=location, Company=company, Salary=salary, Sponsored=sponsored, Description=job_desc, Time=time))
+                    spark.createDataset(data)
             except Exception as e:
                 print(e)
 
