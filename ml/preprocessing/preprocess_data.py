@@ -77,8 +77,6 @@ def apply_preprocessing_on_fields(df):
 
     df['Position_Junior'] = df['Title'].apply(lambda x: get_experience_junior(x))
     df['Position_Senior'] = df['Title'].apply(lambda x: get_experience_senior(x))
-    
-    df['Title_New'] = ''
 
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
 
