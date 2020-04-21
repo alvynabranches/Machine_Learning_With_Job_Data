@@ -20,5 +20,6 @@ GUI_Done = False
 
 Libraries_Required = [
     'threaded',
-    'selenium'
+    'selenium',
+    'scikit-learn'
 ]

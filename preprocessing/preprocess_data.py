@@ -1,6 +1,6 @@
 import pandas as pd
 from warnings import filterwarnings
-from webscrapping.cleansing import preprocessing_description, preprocessing_title, preprocessing_company, preprocessing_location, preprocessing_salary, salary_remove_unit
+from preprocessing.cleansing import preprocessing_description, preprocessing_title, preprocessing_company, preprocessing_location, preprocessing_salary, salary_remove_unit, get_skills
 
 def apply_preprocessing_on_fields(df):
     filterwarnings('ignore')
@@ -44,11 +44,8 @@ def apply_preprocessing_on_fields(df):
     for i in range(df.shape[0]):
         if df['Description'][i].find('part time') != -1:
             df['Job_Type_Part_Time'][i] = 1
-        elif df['Description'][i].find('full time') != -1:
+        if df['Description'][i].find('full time') != -1:
             df['Job_Type_Full_Time'][i] = 1
-        else:
-            df['Job_Type_Part_Time'][i] = -1
-            df['Job_Type_Full_Time'][i] = -1
 
     df['XP_Experience'] = 0
     df['XP_Fresher'] = 0
@@ -60,10 +57,24 @@ def apply_preprocessing_on_fields(df):
             df['Gender_Male'][i] = 1
         if df['Description'][i].find('female') != -1:
             df['Gender_Female'][i] = 1
-        if df['Description'][i].find('male') == -1 and df['Description'][i].find('female') == -1:
-            df['Gender_Male'][i] = -1
-            df['Gender_Female'][i] = -1
     
+    df['tenth'] = 0
+    df['twelvth'] = 0
+    df['bachelors'] = 0
+    df['masters'] = 0
+    df['doctorate'] = 0
+
+    for i in range(df.shape[0]):
+        if df['Description'][i].find(' 10 ') != -1 or df['Description'][i].find('10th') != -1:
+            df['tenth'] = 1
+        if df['Description'][i].find(' 12 ') != -1 or df['Descriptipn'][i].find('12th') != -1:
+            df['twelvth'] = 1
+        if df['Description'][i].find('bachelor degree') != -1:
+            df['bachelors'] = 1
+        if df['Description'].find('masters degree') != -1:
+            df['masters'] = 1
+        if df['Description'].find('doctoral') != -1 or df['Description'].find('doctorate'):
+            df['doctorate'] = 1
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
 
     return df
