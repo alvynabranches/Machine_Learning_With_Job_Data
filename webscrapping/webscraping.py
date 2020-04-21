@@ -32,13 +32,7 @@ class Indeed():
         df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
         driver = webdriver.Chrome(webdriver_location)
 
-        title = None
-        loc = None
-        company = None
-        salary = None
-        sponsored = None
-        time = None
-        job_desc = None
+        title, loc, company, salary, sponsored, time, job_desc = None, None, None, None, None, None
         _s = 0
         driver.maximize_window()
         for i in range(start, end):

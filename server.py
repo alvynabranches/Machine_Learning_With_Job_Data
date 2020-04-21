@@ -1,4 +1,4 @@
-from webscrapping.preprocessing import merge_excel_files
+from preprocessing.preprocessing import merge_excel_files
 from webscrapping.multithreadwebscraping import multiple_threaded_function
 from locations import unique_locations, unique_pincodes
 from jobs import unique_jobs
@@ -6,7 +6,8 @@ from datetime import datetime
 from time import perf_counter
 from pyspark import SparkContext, SparkConf
 
-# sc = SparkContext(conf=SparkConf().set('', ''))
+sc = SparkContext(conf=SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2"))
+sc.setLogLevel('ERROR')
 
 start = perf_counter()
 
