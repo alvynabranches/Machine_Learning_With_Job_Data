@@ -26,7 +26,6 @@ def multiple_threaded_function(start, end, no_of_threads, location_list, job_lis
         print(f'{_l} / {len(location_list)} Locations Processing')
         _j = 0
         location = str(location)
-        print(location)
         for job in job_list:
             _j += 1
             _t += 1
