@@ -8,6 +8,8 @@ unique_jobs=set(
         'artificial+intelligence', 'machine+learning+engineer', 'deep+learning+engineer', 'django+web+developer', 'graphic+designer'
         'system+admin', 'system+administrator', 'data+scientist', 'data+analyst', 'business+analyst', 
         'software+developer', 'c#+developers', 'kotlin+developers', 'kotlin+android+developers', 'computer+vision+engineer', 
-        'computer+vision', 'computer+vision'
+        'computer+vision', 'computer+vision', 'sql+database', 'database+designer', 'investment+analyst', 
+        'data+engineer', 'database-admin', 'database-administrator', 'mongodb+engineer', 'quantum+computing', 
+        'backend+developer', 'fullstack+developer', 'react+native+developer', 'nodejs+developer'
     ]
 )
