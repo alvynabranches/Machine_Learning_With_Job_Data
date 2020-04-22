@@ -82,7 +82,7 @@ def apply_preprocessing_on_fields(df):
     for i in range(df.shape[0]):
         if df['Description'][i].find('internship') != -1 or df['Description'][i].find('intern') != -1:
             df['Internship'][i] = 1
-        if df['Title'][i].find('internship') != -1 or df['Description'][i].find('intern') != -1:
+        if df['Title'][i].find('internship') != -1 or df['Title'][i].find('intern') != -1:
             df['Internship'][i] = 1
 
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)

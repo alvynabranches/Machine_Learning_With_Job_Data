@@ -361,6 +361,8 @@ def get_skills(text):
         skills += '|software devlopment'
     if text.find('redis') != -1:
         skills += '|redis'
+    if text.find('redux') != -1:
+        skills += '|redux'
     if text.find('groovy') != -1:
         skills += '|groovy'
     if text.find('elasticsearch') != -1:
@@ -391,7 +393,20 @@ def get_skills(text):
         skills += '|.net'
     if text.find('microservices') != -1:
         skills += '|microservices'
-    
+    if text.find('unix') != -1:
+        skills += '|unix'
+	if text.find('redhat') != -1:
+        skills += '|redhat'
+	if text.find('linux') != -1:
+        skills += '|linux'
+	if text.find('data mining') != -1:
+        skills += '|data mining'
+	if text.find('data visual') != -1:
+        skills += '|data visualization'
+	if text.find('unstructured data') != -1:
+        skills += '|unstructured data'
+	if text.find('communication skills') != -1:
+        skills += '|communication skills'
     return skills
 
 def get_salary_average(text):
@@ -405,13 +420,13 @@ def get_salary_average(text):
         return 0
 
 def get_experience_junior(text):
-    if text.find('jr') != -1 or text.find('junior') != -1:
+    if text.find(' jr') != -1 or text.find('jr ') != -1 or text.find('junior') != -1:
         return 1
     else:
         return 0
 
 def get_experience_senior(text):
-    if text.find('senior') != -1:
+    if text.find('senior') != -1 or text.find('sr ') != -1 or text.find(' sr') != -1:
         return 1
     else:
         return 0
