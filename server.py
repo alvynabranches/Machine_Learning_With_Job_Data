@@ -11,7 +11,7 @@ sc.setLogLevel('WARN')
 
 start = perf_counter()
 
-multiple_threaded_function(start=0, end=2, no_of_threads=1, location_list=['Mumbai', 'Pune'], job_list=unique_jobs)
+multiple_threaded_function(start=0, end=2, no_of_threads=1, location_list=['Pune', 'Chennai'], job_list=unique_jobs)
 
 merge_excel_files()
 

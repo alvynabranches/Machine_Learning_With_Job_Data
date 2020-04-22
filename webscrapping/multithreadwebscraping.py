@@ -22,16 +22,16 @@ def multiple_threaded_function(start, end, no_of_threads, location_list, job_lis
     _l = 0
     for location in location_list:
         _l += 1
-        print(f'{_l} / {len(location_list)} Locations Processing')
+        # print(f'{_l} / {len(location_list)} Locations Processing')
         _j = 0
         location = str(location)
         for job in job_list:
             _j += 1
-            print(f'{_j} / {len(job_list)} Positions Processing')
-            print(f'{_l + _j} / {len(location_list) * len(job_list)} Processing')
+            # print(f'{_j} / {len(job_list)} Positions Processing')
+            print(f'{_l+_j-1} / {len(location_list) * len(job_list)} Processing')
             ts = []
             for i in range(0, no_of_threads):
-                ts.append(threaded_function((i+start+1) * load_on_single_thread, (i+start+1+1) * load_on_single_thread, location, job))
+                ts.append(threaded_function((i+start) * load_on_single_thread, (i+start+1) * load_on_single_thread, location, job))
                 
             for t in ts:
                 t.start()

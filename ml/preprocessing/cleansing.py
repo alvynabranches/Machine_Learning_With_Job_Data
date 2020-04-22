@@ -1,4 +1,7 @@
 def preprocessing_description(text):
+    '''
+        This function is used to remove the special characters and the unrequired text from description column
+    '''
     text = str(text).lower()
 
     for _ in range(100):
@@ -55,6 +58,9 @@ def preprocessing_description(text):
     return text
 
 def preprocessing_company(text):
+    '''
+        This function is used to remove the special characters and the unrequired text from company column
+    '''
     text = str(text)
     for _ in range(10):
         text = text.replace('&', 'and')
@@ -135,6 +141,9 @@ def preprocessing_title(text):
     return text
 
 def preprocessing_location(text):
+    '''
+        This function is used to remove the special characters and the unrequired text from location column
+    '''
     text = str(text)
     for _ in range(10):
         text = text.replace('&', 'and')
@@ -175,6 +184,9 @@ def preprocessing_location(text):
     return text
 
 def preprocessing_salary(text):
+    '''
+        This function is used to remove the special characters and the unrequired text from salary column
+    '''
     text = str(text)
     for _ in range(20):
         text = text.replace('&', ' and ')
@@ -220,6 +232,10 @@ def preprocessing_salary(text):
     return text
 
 def salary_remove_unit(text):
+    '''
+        This function is used to remove the salary unit from the salary field.
+        NOTE: This function should only be used after removing the special characters and the extra spaces from it.
+    '''
     text = str(text)
     text = text.replace(' month', '')
     text = text.replace(' year', '')
@@ -231,6 +247,11 @@ def salary_remove_unit(text):
     return text
 
 def get_skills(text):
+    '''
+        This function is used to get the skills from the description and title column. 
+
+        NOTE: This function should only be used after removing the special characters and the extra spaces from it.
+    '''
     text = str(text)
     skills = ''
     if text.find('python') != -1:
@@ -395,18 +416,24 @@ def get_skills(text):
         skills += '|microservices'
     if text.find('unix') != -1:
         skills += '|unix'
-	if text.find('redhat') != -1:
+    if text.find('redhat') != -1:
         skills += '|redhat'
-	if text.find('linux') != -1:
+    if text.find('linux') != -1:
         skills += '|linux'
-	if text.find('data mining') != -1:
+    if text.find('data mining') != -1:
         skills += '|data mining'
-	if text.find('data visual') != -1:
+    if text.find('data visual') != -1:
         skills += '|data visualization'
-	if text.find('unstructured data') != -1:
+    if text.find('unstructured data') != -1:
         skills += '|unstructured data'
-	if text.find('communication skills') != -1:
+    if text.find('communication skills') != -1:
         skills += '|communication skills'
+    if text.find('laravel') != -1:
+        skills += '|laravel'
+    if text.find('flask') != -1:
+        skills += '|flask'
+    if text.find('flutter') != -1:
+        skills += '|flutter'
     return skills
 
 def get_salary_average(text):
