@@ -106,8 +106,8 @@ def parse(keyword, place):
 if __name__ == "__main__":
 
 	''' eg-:python 1934_glassdoor.py "Android developer", "new york" '''
-	keyword = ""
-	place = "India"
+	keyword = "data+scientist"
+	place = "Pune"
 	print("Fetching job details")
 	scraped_data = parse(keyword, place)
 	print("Writing data to output file")
