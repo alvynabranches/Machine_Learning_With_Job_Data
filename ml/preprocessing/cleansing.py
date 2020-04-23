@@ -292,7 +292,7 @@ def get_skills(text):
         skills += '|java'
     if text.find('kotlin') != -1:
         skills += '|kotlin'
-    if text.find('mongodb') != -1 or text.find('mongo'):
+    if text.find('mongodb') != -1 or text.find('mongo') != -1:
         skills += '|mongodb'
     if text.find('statistics') != -1:
         skills += '|statistics'
@@ -322,7 +322,7 @@ def get_skills(text):
         skills += '|ux'
     if text.find('deep learning') != -1:
         skills += '|deep learning'
-    if text.find('machine learning') != -1 or text.find(' ml ') != -1 or text.find(' ml') != -1 or text.find('ml '):
+    if text.find('machine learning') != -1 or text.find(' ml ') != -1 or text.find(' ml') != -1 or text.find('ml ') != -1:
         skills += '|machine learning'
     if text.find(' c ') != -1:
         skills += '|c'
@@ -438,7 +438,7 @@ def get_skills(text):
 
 def get_salary_average(text):
     text = str(text)
-    if text != 'nan':
+    if text != '':
         if len(text.split()) == 2:
             return int((float(text.split()[0]) + float(text.split()[1]))/2)
         else:
@@ -458,3 +458,33 @@ def get_experience_senior(text):
     else:
         return 0
 
+def transform_title(text):
+    text = str(text)
+    if text.find('web dev') != -1 or text.find('webdev') != -1:
+        return 'web developer'
+    elif text.find('graphic designer') != -1 or text.find('graphics designer') != -1:
+        return 'graphic designer'
+    elif text.find('system admin') != -1 or text.find('system administrator') != -1:
+        return 'system admin'
+    elif text.find('web graphic designer') != -1 or text.find('web design') != -1 or text.find('web front end developers') != -1 or text.find('front end dev') != -1 or text.find('react dev') != -1 or text.find('react js dev') != -1 or text.find('reactjs dev') != -1 or text.find('vue dev') != -1 or text.find('vue js dev') != -1 or text.find('vuejs dev') != -1 or text.find('angular js dev') != -1 or text.find('angularjs dev') != -1 or text.find('angular dev') != -1:
+        return 'front end developer'
+    elif text.find('ui ux') != -1:
+        return 'ui ux developer'
+    elif text.find('aws architect') != -1:
+        return 'aws developer'
+    elif text.find('full stack') != -1:
+        return 'full stack developer'
+    elif text.find('devops enigneer') != -1:
+        return 'devops engineer'
+    elif text.find('machine learning engineer') != -1 or text.find('machine learning program') != -1 or text.find('ml engineer') != -1:
+        return 'machine learning developer'
+    elif text.find('software eng') != -1 or text.find('software archi') != -1 or text.find('software dev') != -1 or text.find('net dev') != -1:
+        return 'software devoloper'
+    elif text.find('nodejs dev') != -1 or text.find('php dev') != -1:
+        return 'back end developer'
+    elif text.find('big data engineer') != -1 or text.find('hadoop engineer') != -1:
+        return 'big data engineer'
+    elif text.find('data engineer') != -1 and not text.find('big data') != -1:
+        return 'data engineer'
+    else:
+        return None

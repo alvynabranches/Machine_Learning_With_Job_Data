@@ -1,8 +1,11 @@
 import pandas as pd
+from numpy.random import randint
+from datetime import date
+from datetime import timedelta
 from warnings import filterwarnings
 from ml.preprocessing.cleansing import preprocessing_description, preprocessing_title, preprocessing_company
 from ml.preprocessing.cleansing import preprocessing_location, preprocessing_salary, salary_remove_unit, get_skills
-from ml.preprocessing.cleansing import get_salary_average, get_experience_senior, get_experience_junior
+from ml.preprocessing.cleansing import get_salary_average, get_experience_senior, get_experience_junior, transform_title
 
 def apply_preprocessing_on_fields(df):
     filterwarnings('ignore')
@@ -13,7 +16,10 @@ def apply_preprocessing_on_fields(df):
     df['Location'] = df['Location'].apply(lambda x: preprocessing_location(x))
     df['Company'] = df['Company'].apply(lambda x: preprocessing_company(x))
     df['Description'] = df['Description'].apply(lambda x: preprocessing_description(x))
+    df['Description'] = df['Description'].apply(lambda x: ('' if x == 'nan' else x))
     df['Salary'] = df['Salary'].apply(lambda x: preprocessing_salary(x))
+    df['Salary'] = df['Salary'].apply(lambda x: '' if x == 'nan' else x)
+    df['Time'] = df['Time'].apply(lambda x: str(date.today() - timedelta(days=randint(31, 181))) if str(x) == 'nan' else x)
 
     df['Salary_Unit_Month'] = 0
     df['Salary_Unit_Year'] = 0
@@ -45,13 +51,22 @@ def apply_preprocessing_on_fields(df):
 
     df['XP_Experience'] = 0
     df['XP_Fresher'] = 0
+
+    df['Gender'] = 0
     df['Gender_Male'] = 0
     df['Gender_Female'] = 0
     for i in range(df.shape[0]):
-        if df['Description'][i].find('male') != -1:
+        if df['Description'][i].find(' male') != -1:
             df['Gender_Male'][i] = 1
         if df['Description'][i].find('female') != -1:
             df['Gender_Female'][i] = 1
+        if df['Description'][i].find('female') != -1 and not df['Description'][i].find(' male') != -1:
+            df['Gender'][i] = 0
+        elif df['Description'][i].find(' male') != -1 and not df['Description'][i].find('female') != -1:
+            df['Gender'][i] = 1
+        else:
+            df['Gender'][i] = 2
+
     
     df['Education_Tenth'] = 0
     df['Education_Twelvth'] = 0
@@ -63,7 +78,7 @@ def apply_preprocessing_on_fields(df):
             df['Education_Tenth'][i] = 1
         if df['Description'][i].find(' 12 ') != -1 or df['Description'][i].find('12th') != -1 or df['Description'][i].find('higher secondary'):
             df['Education_Twelvth'][i] = 1
-        if df['Description'][i].find('bachelor degree') != -1:
+        if df['Description'][i].find('bachelor degree') != -1 or df['Description'][i].find('bachelor s') != -1:
             df['Education_Bachelors'][i] = 1
         if df['Description'][i].find('masters degree') != -1:
             df['Education_Masters'][i] = 1
@@ -84,6 +99,8 @@ def apply_preprocessing_on_fields(df):
             df['Internship'][i] = 1
         if df['Title'][i].find('internship') != -1 or df['Title'][i].find('intern') != -1:
             df['Internship'][i] = 1
+
+    df['Title_New'] = df['Title'].apply(lambda x: transform_title(x))
 
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
 

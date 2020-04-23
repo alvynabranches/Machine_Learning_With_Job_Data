@@ -8,6 +8,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql import Row
 
 import hashlib
+from numpy.random import randint
 import pandas as pd
 import os
 import warnings
@@ -147,7 +148,7 @@ class Indeed():
                         elif _time == '30 days ago':
                             time = str(date.today() - timedelta(days=30))
                         else:
-                            time = ''
+                            time = str(date.today() - timedelta(days=randint(31, 181)))
                     except:
                         time = ''
 
