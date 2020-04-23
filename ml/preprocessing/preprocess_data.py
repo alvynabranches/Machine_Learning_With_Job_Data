@@ -6,6 +6,7 @@ from warnings import filterwarnings
 from ml.preprocessing.cleansing import preprocessing_description, preprocessing_title, preprocessing_company
 from ml.preprocessing.cleansing import preprocessing_location, preprocessing_salary, salary_remove_unit, get_skills
 from ml.preprocessing.cleansing import get_salary_average, get_experience_senior, get_experience_junior, transform_title
+from ml.preprocessing.cleansing import unique_skills
 
 def apply_preprocessing_on_fields(df):
     filterwarnings('ignore')
@@ -89,6 +90,7 @@ def apply_preprocessing_on_fields(df):
     df['Skills_Title'] = df['Title'].apply(lambda x: get_skills(x))
     df['Skills'] = df['Skills_Description'] + df['Skills_Title']
     df['Skills'] = df['Skills'].apply(lambda x: x[1:])
+    df['Skills'] = df['Skills'].apply(lambda x: unique_skills(x))
 
     df['Position_Junior'] = df['Title'].apply(lambda x: get_experience_junior(x))
     df['Position_Senior'] = df['Title'].apply(lambda x: get_experience_senior(x))

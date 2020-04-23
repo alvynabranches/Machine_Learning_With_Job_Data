@@ -436,6 +436,12 @@ def get_skills(text):
         skills += '|flutter'
     return skills
 
+def unique_skills(text):
+    text = str(text)
+    text = list(set(text.split('|')))
+    text = '|'.join(text)
+    return text
+
 def get_salary_average(text):
     text = str(text)
     if text != '':
@@ -460,6 +466,8 @@ def get_experience_senior(text):
 
 def transform_title(text):
     text = str(text)
+    if text.find('data sci') != -1:
+        return 'data scientist'
     if text.find('web dev') != -1 or text.find('webdev') != -1:
         return 'web developer'
     elif text.find('graphic designer') != -1 or text.find('graphics designer') != -1:
@@ -472,14 +480,14 @@ def transform_title(text):
         return 'ui ux developer'
     elif text.find('aws architect') != -1:
         return 'aws developer'
-    elif text.find('full stack') != -1:
+    elif text.find('full stack dev') != -1 or text.find('php full stack') != -1:
         return 'full stack developer'
     elif text.find('devops enigneer') != -1:
         return 'devops engineer'
     elif text.find('machine learning engineer') != -1 or text.find('machine learning program') != -1 or text.find('ml engineer') != -1 or text.find('ml dev') != -1:
         return 'machine learning developer'
     elif text.find('software eng') != -1 or text.find('software archi') != -1 or text.find('software dev') != -1 or text.find('net dev') != -1:
-        return 'software devoloper'
+        return 'software developer'
     elif text.find('nodejs dev') != -1 or text.find('php dev') != -1:
         return 'back end developer'
     elif text.find('big data engineer') != -1 or text.find('hadoop engineer') != -1:
