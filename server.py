@@ -21,7 +21,7 @@ df = pd.read_excel('./indeed_results.xlsx')
 
 df = apply_preprocessing_on_fields(df)
 
-df.to_excel(f'indeed_results_pp_{str(date.today())}.xlsx')
+df.to_excel(f'indeed_results_pp_{str(date.today())}.xlsx', index=False)
 
 finish = perf_counter()
 
