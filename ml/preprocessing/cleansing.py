@@ -476,7 +476,7 @@ def transform_title(text):
         return 'full stack developer'
     elif text.find('devops enigneer') != -1:
         return 'devops engineer'
-    elif text.find('machine learning engineer') != -1 or text.find('machine learning program') != -1 or text.find('ml engineer') != -1:
+    elif text.find('machine learning engineer') != -1 or text.find('machine learning program') != -1 or text.find('ml engineer') != -1 or text.find('ml dev') != -1:
         return 'machine learning developer'
     elif text.find('software eng') != -1 or text.find('software archi') != -1 or text.find('software dev') != -1 or text.find('net dev') != -1:
         return 'software devoloper'
