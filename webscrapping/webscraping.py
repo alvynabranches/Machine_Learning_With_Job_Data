@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
-from datetime import date
-from datetime import datetime
-from datetime import timedelta
+from datetime import date, datetime, timedelta
 from selenium import webdriver
 from time import perf_counter
 from pyspark.sql import SparkSession
