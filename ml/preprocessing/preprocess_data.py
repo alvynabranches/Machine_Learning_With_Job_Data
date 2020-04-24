@@ -13,6 +13,7 @@ def apply_preprocessing_on_fields(df):
     '''
         NOTE: df should be a pandas DataFrame
     '''
+    df = df[df['Title'].notnull() & df['Description'].notnull() & df['Salary'].notnull()]
     df['Title'] = df['Title'].apply(lambda x: preprocessing_title(x))
     df['Location'] = df['Location'].apply(lambda x: preprocessing_location(x))
     df['Company'] = df['Company'].apply(lambda x: preprocessing_company(x))

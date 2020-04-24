@@ -468,7 +468,7 @@ def transform_title(text):
     text = str(text)
     if text.find('data sci') != -1:
         return 'data scientist'
-    if text.find('web dev') != -1 or text.find('webdev') != -1:
+    elif text.find('web dev') != -1 or text.find('webdev') != -1:
         return 'web developer'
     elif text.find('graphic designer') != -1 or text.find('graphics designer') != -1:
         return 'graphic designer'
@@ -490,7 +490,7 @@ def transform_title(text):
         return 'software developer'
     elif text.find('nodejs dev') != -1 or text.find('php dev') != -1:
         return 'back end developer'
-    elif text.find('big data engineer') != -1 or text.find('hadoop engineer') != -1:
+    elif text.find('big data engineer') != -1 or text.find('hadoop engineer') != -1 or text.find('spark engineer') != -1:
         return 'big data engineer'
     elif text.find('data engineer') != -1 and not text.find('big data') != -1:
         return 'data engineer'
