@@ -1,6 +1,6 @@
 from threaded import ThreadPooled, Threaded
 from __init__ import chrome_driver_location
-from webscrapping.webscraping import Indeed
+from webscrapping.webscrapping import Indeed
 
 ThreadPooled.configure(max_workers=1024)
 

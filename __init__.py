@@ -1,9 +1,16 @@
-version = '0.0.100'
+version = '0.0.112'
 chrome_version = '81'
 
 project_directory = './'
 
+os = 'windows'
+
 chrome_driver_location = project_directory + 'chromedriver/'+ chrome_version +'/chromedriver'
+
+if os == 'windows':
+    chrome_driver_location += '.exe'
+elif os == 'linux':
+    chrome_driver_location += ''
 
 webscrapping_directory =  project_directory + 'webscrapping/'
 download_directory = project_directory + 'data/'

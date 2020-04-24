@@ -6,22 +6,22 @@ from jobs import unique_jobs
 from datetime import datetime, date
 from time import perf_counter
 import pandas as pd
-from pyspark import SparkContext, SparkConf
+# from pyspark import SparkContext, SparkConf
 
-sc = SparkContext(conf=SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2"))
-sc.setLogLevel('WARN')
+# sc = SparkContext(conf=SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2"))
+# sc.setLogLevel('WARN')
 
 start = perf_counter()
 
-# multiple_threaded_function(start=0, end=2, no_of_threads=1, location_list=['Pune', 'Chennai'], job_list=unique_jobs)
+# multiple_threaded_function(start=0, end=10, no_of_threads=5, location_list=['Pune', 'Chennai', 'Mumbai'], job_list=unique_jobs)
 
-# merge_excel_files()
+merge_excel_files()
 
-df = pd.read_excel('./indeed_results.xlsx')
+# df = pd.read_excel('./indeed_results.xlsx')
 
-df = apply_preprocessing_on_fields(df)
+# df = apply_preprocessing_on_fields(df)
 
-df.to_excel(f'indeed_results_pp_{str(date.today())}.xlsx', index=False)
+# df.to_excel(f'indeed_results_pp_{str(date.today())}.xlsx', index=False)
 
 finish = perf_counter()
 
