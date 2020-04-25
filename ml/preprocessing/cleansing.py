@@ -455,6 +455,10 @@ def get_skills(text):
         skills += '|flask'
     if text.find('flutter') != -1:
         skills += '|flutter'
+    if text.find('macos') != -1 or text.find('mac os') != -1:
+        skills += '|macos'
+    if text.find('windows') != -1:
+        skills += '|windows'
     return skills
 
 def unique_skills(text):
