@@ -246,6 +246,28 @@ def salary_remove_unit(text):
     text = text.lstrip().rstrip()
     return text
 
+def get_salary_average(text):
+    text = str(text)
+    if text != '':
+        if len(text.split()) == 2:
+            return int((float(text.split()[0]) + float(text.split()[1]))/2)
+        else:
+            return int(text)
+    else:
+        return 0
+
+def get_experience_junior(text):
+    if text.find(' jr') != -1 or text.find('jr ') != -1 or text.find('junior') != -1:
+        return 1
+    else:
+        return 0
+
+def get_experience_senior(text):
+    if text.find('senior') != -1 or text.find('sr ') != -1 or text.find(' sr') != -1:
+        return 1
+    else:
+        return 0
+
 def get_skills(text):
     '''
         This function is used to get the skills from the description and title column. 
@@ -440,28 +462,6 @@ def unique_skills(text):
     text = list(set(text.split('|')))
     text = '|'.join(text)
     return text
-
-def get_salary_average(text):
-    text = str(text)
-    if text != '':
-        if len(text.split()) == 2:
-            return int((float(text.split()[0]) + float(text.split()[1]))/2)
-        else:
-            return int(text)
-    else:
-        return 0
-
-def get_experience_junior(text):
-    if text.find(' jr') != -1 or text.find('jr ') != -1 or text.find('junior') != -1:
-        return 1
-    else:
-        return 0
-
-def get_experience_senior(text):
-    if text.find('senior') != -1 or text.find('sr ') != -1 or text.find(' sr') != -1:
-        return 1
-    else:
-        return 0
 
 def transform_title(text):
     text = str(text)

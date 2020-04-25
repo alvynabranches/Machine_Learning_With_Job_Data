@@ -42,6 +42,24 @@ def apply_preprocessing_on_fields(df):
     df['Salary_New'] = df['Salary'].apply(lambda x: salary_remove_unit(x))
     df['Salary_Average'] = df['Salary_New'].apply(lambda x: get_salary_average(x))
 
+    _year = 12         # 12 months in a year
+    _month = 1         # retain the month value as it is
+    _week = 4          # 4 weeks in a month
+    _day  = 6 * _week   # 6 working days a week, 4 weeks in a month
+    _hour = 8 * _day    # 8 hours a day, 6 working days a week, 4 weeks in a month
+    df['Monthly_Salary'] = 0
+    for i in range(df.shape[0]):
+        if df['Salary_Unit_Year'][i] == 1:
+            df['Monthly_Salary'][i] = df['Salary_Average'][i] / _year
+        elif df['Salary_Unit_Month'][i] == 1:
+            df['Monthly_Salary'][i] = df['Salary_Average'][i] * _month
+        elif df['Salary_Unit_Week'][i] == 1:
+            df['Monthly_Salary'][i] = df['Salary_Average'][i] * _week
+        elif df['Salary_Unit_Day'][i] == 1:
+            df['Monthly_Salary'][i] = df['Salary_Average'][i] * _day
+        elif df['Salary_Unit_Hour'][i] == 1:
+            df['Monthly_Salary'][i] = df['Salary_Average'][i] * _hour
+
     df['Job_Type_Part_Time'] = 0
     df['Job_Type_Full_Time'] = 0
     for i in range(df.shape[0]):
