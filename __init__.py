@@ -32,5 +32,5 @@ Libraries_Required = [
     'mlxtend',
     'dash',
     'plotly',
-    ''
+    'pyspark'
 ]
