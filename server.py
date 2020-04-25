@@ -13,9 +13,9 @@ import pandas as pd
 
 start = perf_counter()
 
-# multiple_threaded_function(start=0, end=5, no_of_threads=5, location_list=unique_locations, job_list=unique_jobs)
+multiple_threaded_function(start=0, end=5, no_of_threads=5, location_list=unique_locations, job_list=unique_jobs)
 
-# merge_excel_files()
+merge_excel_files()
 
 df = pd.read_excel('./indeed_results.xlsx')
 
