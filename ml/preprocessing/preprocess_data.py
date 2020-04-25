@@ -7,7 +7,6 @@ from ml.preprocessing.cleansing import preprocessing_description, preprocessing_
 from ml.preprocessing.cleansing import preprocessing_location, preprocessing_salary, salary_remove_unit, get_skills
 from ml.preprocessing.cleansing import get_salary_average, get_experience_senior, get_experience_junior, transform_title
 from ml.preprocessing.cleansing import unique_skills
-
 def apply_preprocessing_on_fields(df):
     filterwarnings('ignore')
     '''
@@ -54,6 +53,12 @@ def apply_preprocessing_on_fields(df):
     df['XP_Experience'] = 0
     df['XP_Fresher'] = 0
 
+    for i in range(df.shape[0]):
+        if df['Description'][i].find('experienced') != -1 or df['Title'][i].find('experienced') != -1:
+            df['XP_Experience'][i] = 1
+        if df['Description'][i].find('fresher') != -1 or df['Title'][i].find('fresher') != -1:
+            df['XP_Experience'][i] = 1
+        
     df['Gender'] = 0
     df['Gender_Male'] = 0
     df['Gender_Female'] = 0
@@ -69,7 +74,6 @@ def apply_preprocessing_on_fields(df):
         else:
             df['Gender'][i] = 2
 
-    
     df['Education_Tenth'] = 0
     df['Education_Twelvth'] = 0
     df['Education_Bachelors'] = 0
