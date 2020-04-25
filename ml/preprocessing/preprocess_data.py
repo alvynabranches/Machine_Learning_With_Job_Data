@@ -57,7 +57,7 @@ def apply_preprocessing_on_fields(df):
         if df['Description'][i].find('experienced') != -1 or df['Title'][i].find('experienced') != -1:
             df['XP_Experience'][i] = 1
         if df['Description'][i].find('fresher') != -1 or df['Title'][i].find('fresher') != -1:
-            df['XP_Experience'][i] = 1
+            df['XP_Fresher'][i] = 1
         
     df['Gender'] = 0
     df['Gender_Male'] = 0
