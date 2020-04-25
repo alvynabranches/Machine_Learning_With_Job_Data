@@ -110,6 +110,6 @@ def apply_preprocessing_on_fields(df):
     df['Title_New'] = df['Title'].apply(lambda x: transform_title(x))
 
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
-    df = df[df['Title'].notnull() & df['Description'].notnull() & df['Salary'].notnull()]
+    # df = df[df['Title'].notnull() & df['Description'].notnull() & df['Salary'].notnull()]
     
     return df
