@@ -78,13 +78,13 @@ def apply_preprocessing_on_fields(df):
     for i in range(df.shape[0]):
         if df['Description'][i].find(' 10 ') != -1 or df['Description'][i].find('10th') != -1:
             df['Education_Tenth'][i] = 1
-        if df['Description'][i].find(' 12 ') != -1 or df['Description'][i].find('12th') != -1 or df['Description'][i].find('higher secondary'):
+        if df['Description'][i].find(' 12 ') != -1 or df['Description'][i].find('12th') != -1 or df['Description'][i].find('higher secondary') != -1:
             df['Education_Twelvth'][i] = 1
         if df['Description'][i].find('bachelor degree') != -1 or df['Description'][i].find('bachelor s') != -1:
             df['Education_Bachelors'][i] = 1
         if df['Description'][i].find('masters degree') != -1:
             df['Education_Masters'][i] = 1
-        if df['Description'][i].find('doctoral') != -1 or df['Description'][i].find('doctorate'):
+        if df['Description'][i].find('doctoral') != -1 or df['Description'][i].find('doctorate') != -1:
             df['Education_Doctorate'][i] = 1
         
     df['Skills_Description'] = df['Description'].apply(lambda x: get_skills(x))
@@ -106,5 +106,6 @@ def apply_preprocessing_on_fields(df):
     df['Title_New'] = df['Title'].apply(lambda x: transform_title(x))
 
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
-
+    df = df[df['Title'].notnull() & df['Description'].notnull() & df['Salary'].notnull()]
+    
     return df

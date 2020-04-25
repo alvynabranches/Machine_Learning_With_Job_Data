@@ -28,5 +28,9 @@ GUI_Done = False
 Libraries_Required = [
     'threaded',
     'selenium',
-    'scikit-learn'
+    'scikit-learn',
+    'mlxtend',
+    'dash',
+    'plotly',
+    ''
 ]

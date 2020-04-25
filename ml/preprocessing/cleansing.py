@@ -249,7 +249,6 @@ def salary_remove_unit(text):
 def get_skills(text):
     '''
         This function is used to get the skills from the description and title column. 
-
         NOTE: This function should only be used after removing the special characters and the extra spaces from it.
     '''
     text = str(text)
