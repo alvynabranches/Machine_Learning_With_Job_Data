@@ -577,6 +577,10 @@ def get_skills(text):
         skills += '|ajax'
     if text.find('unit testing') != -1:
         skills += '|unit testing'
+    if text.find('xml') != -1:
+        skills += '|xml'
+    if text.find('') != -1:
+        skills += '|'
     return skills
 
 def unique_skills(text):
