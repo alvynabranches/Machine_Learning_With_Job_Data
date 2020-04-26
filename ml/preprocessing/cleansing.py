@@ -559,8 +559,18 @@ def get_skills(text):
         skills += '|jboss'
     if text.find('oops') != -1:
         skills += '|oops'
-    if text.find('') != -1:
-        skills += '|'
+    if text.find('gateway') != -1:
+        skills += '|gateway'
+    if text.find('golang') != -1:
+        skills += '|golang'
+    if text.find('stripe') != -1:
+        skills += '|stripe'
+    if text.find('braintree') != -1:
+        skills += '|braintree'
+    if text.find('cloudfront') != -1:
+        skills += '|cloudfront'
+    if text.find('cloudwatch') != -1:
+        skills += '|cloudwatch'
     return skills
 
 def unique_skills(text):
