@@ -293,7 +293,7 @@ def get_skills(text):
         skills += '|pytorch'
     if text.find('django') != -1:
         skills += '|django'
-    if text.find('react') != -1 and text.find('js') != -1:
+    if (text.find('react') != -1 and text.find('js') != -1) or (text.find('react') != -1 and text.find('javascript') != -1):
         skills += '|react.js'
     if text.find('angular js') != -1 or text.find('angularjs') != -1:
         skills += '|angular.js'
@@ -571,6 +571,12 @@ def get_skills(text):
         skills += '|cloudfront'
     if text.find('cloudwatch') != -1:
         skills += '|cloudwatch'
+    if text.find('npm') != -1:
+        skills += '|npm'
+    if text.find('ajax') != -1:
+        skills += '|ajax'
+    if text.find('unit testing') != -1:
+        skills += '|unit testing'
     return skills
 
 def unique_skills(text):
