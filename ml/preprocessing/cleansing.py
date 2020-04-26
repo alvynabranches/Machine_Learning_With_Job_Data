@@ -579,8 +579,14 @@ def get_skills(text):
         skills += '|unit testing'
     if text.find('xml') != -1:
         skills += '|xml'
-    if text.find('') != -1:
-        skills += '|'
+    if text.find('docker') != -1:
+        skills += '|docker'
+    if text.find('springboot') != -1  or text.find('spring boot') != -1:
+        skills += '|springboot'
+    if text.find('kubernetes') != -1:
+        skills += '|kubernetes'
+    if text.find('selenium') != -1:
+        skills += '|selenium'
     return skills
 
 def unique_skills(text):
