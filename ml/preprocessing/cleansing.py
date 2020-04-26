@@ -589,8 +589,10 @@ def get_skills(text):
         skills += '|selenium'
     if text.find('swift') != -1:
         skills += '|swift'
-    if text.find('android sdk') != -1:
-        skills += '|android sdk'
+    if text.find('sqlite') != -1:
+        skills += '|sqlite'
+    if text.find('photoshop') != -1:
+        skills += '|photoshop'
     return skills
 
 def unique_skills(text):
