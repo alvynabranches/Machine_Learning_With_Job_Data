@@ -587,6 +587,10 @@ def get_skills(text):
         skills += '|kubernetes'
     if text.find('selenium') != -1:
         skills += '|selenium'
+    if text.find('swift') != -1:
+        skills += '|swift'
+    if text.find('android sdk') != -1:
+        skills += '|android sdk'
     return skills
 
 def unique_skills(text):
