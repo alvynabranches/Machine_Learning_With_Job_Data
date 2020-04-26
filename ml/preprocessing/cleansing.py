@@ -307,10 +307,16 @@ def get_skills(text):
         skills += '|hive'
     if text.find('pig') != -1:
         skills += '|pig'
-    if text.find('sql') != -1:
+    if text.find(' sql') != -1 or text.find('sql ') != -1:
         skills += '|sql'
-    if text.find('java') != -1:
+    if text.find('java') != -1 and not text.find('java ee') != -1 and not text.find('java se') != -1 and not text.find('java me') != -1:
         skills += '|java'
+    if text.find('java ee') != -1:
+        skills += '|java ee'
+    if text.find('java se') != -1:
+        skills += '|java se'
+    if text.find('java me') != -1:
+        skills += '|java me'
     if text.find('kotlin') != -1:
         skills += '|kotlin'
     if text.find('mongodb') != -1 or text.find('mongo') != -1:
@@ -415,7 +421,7 @@ def get_skills(text):
         skills += '|bash'
     if text.find('unix') != -1:
         skills += '|unix'
-    if text.find('ms sql') != -1:
+    if text.find('ms sql') != -1 or text.find('ms database') != -1:
         skills += '|ms sql server'
     if text.find('agile') != -1:
         skills += '|agile'
@@ -431,7 +437,7 @@ def get_skills(text):
         skills += '|cloud'
     if text.find('vb script net') != -1:
         skills += '|vb script net'
-    if text.find(' net') != -1 or text.find('dotnet') != -1:
+    if text.find(' net') != -1 or text.find('dotnet') != -1 or text.find('dot net') != -1:
         skills += '|.net'
     if text.find('microservices') != -1:
         skills += '|microservices'
@@ -477,10 +483,84 @@ def get_skills(text):
         skills += '|lamp'
     if text.find('xampp') != -1:
         skills += '|xampp'
-    if text.find('restapi') != -1 or text.find(' rest ') != -1:
+    if text.find('restapi') != -1 or text.find(' rest ') != -1 or text.find('restful api') != -1:
         skills += '|restapi'
     if text.find('bigquery') != -1 or text.find('big query') != -1:
         skills += '|bigquery'
+    if text.find('windows server') != -1:
+        skills += '|windows server'
+    if text.find('sdlc') != -1:
+        skills += '|sdlc'
+    if text.find('mvp') != -1:
+        skills += '|mvp'
+    if text.find('mvc') != -1:
+        skills += '|mvc'
+    if text.find('objective c') != -1:
+        skills += '|objective c'
+    if text.find('git') != -1:
+        skills += '|git'
+    if text.find('junit') != -1:
+        skills += '|junit'
+    if text.find('jest') != -1:
+        skills += '|jest'
+    if text.find('mocha') != -1:
+        skills += '|mocha'
+    if text.find('enzyme') != -1:
+        skills += '|enzyme'
+    if text.find('android sdk') != -1:
+        skills += '|android sdk'
+    if text.find('mvvm') != -1:
+        skills += '|mvvm'
+    if text.find('iot') != -1:
+        skills += '|iot'
+    if text.find('gcm') != -1 or text.find('google cloud mes') != -1:
+        skills += '|gcm'
+    if text.find('wordpress') != -1:
+        skills += '|wordpress'
+    if text.find('codeigniter') != -1:
+        skills += '|codeigniter'
+    if text.find('joomla') != -1:
+        skills += '|joomla'
+    if text.find('content management system') != -1:
+        skills += '|cms'
+    if text.find('microsoft bi') != -1 or text.find('microsoft power bi') != -1 or text.find('powerbi') != -1:
+        skills += '|microsoft bi'
+    if text.find('asp net') != -1:
+        skills += '|asp.net'
+    if text.find('version control system') != -1 or text.find('vcs') != -1:
+        skills += '|vcs'
+    if text.find('tomcat') != -1:
+        skills += '|apache tomcat'
+    if text.find('plsql') != -1:
+        skills += '|plsql'
+    if text.find('tsql') != -1:
+        skills += '|tsql'
+    if text.find('bootstrap') != -1:
+        skills += '|bootstrap'
+    if text.find('opencv') != -1 or text.find('open cv') != -1:
+        skills += '|opencv'
+    if text.find('nerual network') != -1:
+        skills += '|nn'
+    if text.find('dreamweaver') != -1:
+        skills += '|dreamweaver'
+    if text.find('analytical skill') != -1:
+        skills += '|analytics'
+    if text.find('debugging skill') != -1:
+        skills += '|debugging'
+    if text.find('hibernate') != -1:
+        skills += '|hibernate'
+    if text.find('etl') != -1:
+        skills += '|etl'
+    if text.find('maven') != -1:
+        skills += '|maven'
+    if text.find('eclipse') != -1:
+        skills += '|eclipse'
+    if text.find('jboss') != -1:
+        skills += '|jboss'
+    if text.find('oops') != -1:
+        skills += '|oops'
+    if text.find('') != -1:
+        skills += '|'
     return skills
 
 def unique_skills(text):
