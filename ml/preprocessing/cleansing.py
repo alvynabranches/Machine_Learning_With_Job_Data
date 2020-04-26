@@ -483,7 +483,7 @@ def transform_title(text):
         return 'ui ux developer'
     elif text.find('aws architect') != -1:
         return 'aws developer'
-    elif text.find('full stack dev') != -1 or text.find('php full stack') != -1:
+    elif text.find('full stack dev') != -1 or text.find('php full stack') != -1 or text.find('fullstack dev') != -1:
         return 'full stack developer'
     elif text.find('devops enigneer') != -1:
         return 'devops engineer'
@@ -497,5 +497,7 @@ def transform_title(text):
         return 'big data engineer'
     elif text.find('data engineer') != -1 and not text.find('big data') != -1:
         return 'data engineer'
+    elif text.find('android dev') != -1 or text.find('android app dev') != -1:
+        return 'android app developer'
     else:
         return None
