@@ -148,7 +148,7 @@ class Indeed():
                         else:
                             time = str(date.today() - timedelta(days=randint(31, 181)))
                     except:
-                        time = ''
+                        time = str(date.today() - timedelta(days=randint(31, 181)))
                     driver.implicitly_wait(10)
                     try:
                         job_desc = driver.find_element_by_id('vjs-desc').text
