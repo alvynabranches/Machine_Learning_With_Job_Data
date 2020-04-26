@@ -431,7 +431,7 @@ def get_skills(text):
         skills += '|cloud'
     if text.find('vb script net') != -1:
         skills += '|vb script net'
-    if text.find(' net') != -1:
+    if text.find(' net') != -1 or text.find('dotnet') != -1:
         skills += '|.net'
     if text.find('microservices') != -1:
         skills += '|microservices'
@@ -489,7 +489,7 @@ def transform_title(text):
         return 'devops engineer'
     elif text.find('machine learning engineer') != -1 or text.find('machine learning program') != -1 or text.find('ml engineer') != -1 or text.find('ml dev') != -1:
         return 'machine learning developer'
-    elif text.find('software eng') != -1 or text.find('software archi') != -1 or text.find('software dev') != -1 or text.find('net dev') != -1:
+    elif text.find('software eng') != -1 or text.find('dotnet dev') != -1 or text.find('software archi') != -1 or text.find('software dev') != -1 or text.find('net dev') != -1:
         return 'software developer'
     elif text.find('nodejs dev') != -1 or text.find('php dev') != -1:
         return 'back end developer'
