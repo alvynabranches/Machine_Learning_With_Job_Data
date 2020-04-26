@@ -471,3 +471,7 @@
 [0426/001959.287:ERROR:exception_snapshot_win.cc(98)] thread ID 3852 not found in process
 [0426/001959.246:ERROR:process_reader_win.cc(123)] NtOpenThread: {Access Denied} A process has requested access to an object, but has not been granted those access rights. (0xc0000022)
 [0426/001959.287:ERROR:exception_snapshot_win.cc(98)] thread ID 40152 not found in process
+[0426/140606.908:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0
+[0426/141137.777:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0
+[0426/151111.734:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0
+[0426/152425.159:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0

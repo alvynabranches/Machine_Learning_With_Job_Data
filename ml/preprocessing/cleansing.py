@@ -323,9 +323,9 @@ def get_skills(text):
         skills += '|r'
     if text.find('powerbi') != -1:
         skills += '|powerbi'
-    if (text.find('excel') != -1 and text.find('microsoft')) or text.find('msexcel') != -1:
+    if (text.find('excel') != -1 and (text.find('microsoft') != -1 or text.find('ms') != -1)) or text.find('msexcel') != -1:
         skills += '|msexcel'
-    if text.find('word') != -1 and (text.find('ms') != -1 or text.find('microsoft') != -1):
+    if (text.find('word') != -1 and (text.find('ms') != -1 or text.find('microsoft') != -1)) or text.find('msword') != -1:
         skills += '|msword'
     if text.find('powerpoint') != -1 or text.find('mspowerpoint') != -1:
         skills += '|mspp'
@@ -457,8 +457,30 @@ def get_skills(text):
         skills += '|flutter'
     if text.find('macos') != -1 or text.find('mac os') != -1:
         skills += '|macos'
-    if text.find('windows') != -1:
+    if text.find('windows os') != -1 or text.find('windowsos') != -1 or text.find('windows oper') != -1:
         skills += '|windows'
+    if text.find('microcontroller') != -1:
+        skills += '|microcontroller'
+    if text.find('mern') != -1:
+        skills += '|mern'
+    if text.find('mean') != -1:
+        skills += '|mean'
+    if text.find('mevn') != -1:
+        skills += '|mevn'
+    if text.find('ios') != -1:
+        skills += '|ios'
+    if text.find('jquery') != -1:
+        skills += '|jquery'
+    if text.find('wamp') != -1:
+        skills += '|wamp'
+    if text.find('lamp') != -1:
+        skills += '|lamp'
+    if text.find('xampp') != -1:
+        skills += '|xampp'
+    if text.find('restapi') != -1 or text.find(' rest ') != -1:
+        skills += '|restapi'
+    if text.find('bigquery') != -1 or text.find('big query') != -1:
+        skills += '|bigquery'
     return skills
 
 def unique_skills(text):
@@ -477,13 +499,17 @@ def transform_title(text):
         return 'graphic designer'
     elif text.find('system admin') != -1 or text.find('system administrator') != -1:
         return 'system admin'
-    elif text.find('web graphic designer') != -1 or text.find('web design') != -1 or text.find('web front end developers') != -1 or text.find('front end dev') != -1 or text.find('react dev') != -1 or text.find('react js dev') != -1 or text.find('reactjs dev') != -1 or text.find('vue dev') != -1 or text.find('vue js dev') != -1 or text.find('vuejs dev') != -1 or text.find('angular js dev') != -1 or text.find('angularjs dev') != -1 or text.find('angular dev') != -1:
+    elif text.find('web graphic designer') != -1 or text.find('html 5 dev') != -1 or text.find('web design') != -1 or text.find('web front end developers') != -1 or text.find('front end dev') != -1 or text.find('react dev') != -1 or text.find('react js dev') != -1 or text.find('reactjs dev') != -1 or text.find('vue dev') != -1 or text.find('vue js dev') != -1 or text.find('vuejs dev') != -1 or text.find('angular js dev') != -1 or text.find('angularjs dev') != -1 or text.find('angular dev') != -1:
         return 'front end developer'
     elif text.find('ui ux') != -1:
         return 'ui ux developer'
+    elif text.find('ui des') != -1 or text.find('ui dev') != -1:
+        return 'ui developer'
+    elif text.find('ux des') != -1 or text.find('ux dev') != -1:
+        return 'ux developer'
     elif text.find('aws architect') != -1:
         return 'aws developer'
-    elif text.find('full stack dev') != -1 or text.find('php full stack') != -1 or text.find('fullstack dev') != -1:
+    elif text.find('full stack dev') != -1 or text.find('php full stack') != -1 or text.find('fullstack dev') != -1 or text.find('mean stack') != -1 or text.find('mern stack') != -1 or text.find('mevn stack') != -1 or text.find('mern dev') != -1 or text.find('mean dev') != -1 or text.find('mevn dev') != -1:
         return 'full stack developer'
     elif text.find('devops enigneer') != -1:
         return 'devops engineer'
@@ -497,7 +523,9 @@ def transform_title(text):
         return 'big data engineer'
     elif text.find('data engineer') != -1 and not text.find('big data') != -1:
         return 'data engineer'
-    elif text.find('android dev') != -1 or text.find('android app dev') != -1:
-        return 'android app developer'
+    elif text.find('android dev') != -1 or text.find('android app dev') != -1 or text.find('ios app dev') != -1 or text.find('ios dev') != -1:
+        return 'mobile app developer'
+    elif text.find('embedded eng') != -1:
+        return 'embedded engineer'
     else:
         return None
