@@ -1,12 +1,16 @@
-import pandas as pd
 from numpy.random import randint
-from datetime import date
-from datetime import timedelta
+from numpy import datetime64
+import pandas as pd
+from datetime import date, timedelta
 from warnings import filterwarnings
 from ml.preprocessing.cleansing import preprocessing_description, preprocessing_title, preprocessing_company
 from ml.preprocessing.cleansing import preprocessing_location, preprocessing_salary, salary_remove_unit, get_skills
 from ml.preprocessing.cleansing import get_salary_average, get_experience_senior, get_experience_junior, transform_title
 from ml.preprocessing.cleansing import unique_skills
+
+def text_to_date(text):
+    return datetime64(f"{str(text).split('-')[0]}-{str(text).split('-')[1]}-{str(text).split('-')[2]}")
+
 def apply_preprocessing_on_fields(df):
     filterwarnings('ignore')
     '''
@@ -42,9 +46,9 @@ def apply_preprocessing_on_fields(df):
     df['Salary_New'] = df['Salary'].apply(lambda x: salary_remove_unit(x))
     df['Salary_Average'] = df['Salary_New'].apply(lambda x: get_salary_average(x))
 
-    _year = 12         # 12 months in a year
-    _month = 1         # retain the month value as it is
-    _week = 4          # 4 weeks in a month
+    _year = 12          # 12 months in a year
+    _month = 1          # retain the month value as it is
+    _week = 4           # 4 weeks in a month
     _day  = 6 * _week   # 6 working days a week, 4 weeks in a month
     _hour = 8 * _day    # 8 hours a day, 6 working days a week, 4 weeks in a month
     df['Monthly_Salary'] = 0
@@ -132,5 +136,7 @@ def apply_preprocessing_on_fields(df):
 
     df = df[df['Location'] != 'India'].reset_index().drop(['index'], axis=1)
     # df = df[df['Title'].notnull() & df['Description'].notnull() & df['Salary'].notnull()]
+
+    df['Time'] = df['Time'].apply(text_to_date)
     
     return df
