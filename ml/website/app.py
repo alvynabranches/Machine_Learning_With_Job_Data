@@ -101,3 +101,6 @@ def dropdowns(plot):
     elif plot == plots[1]:
         return classifiers_str[0]
 
+@app.callback(Output('', ''), [Input('plottype', 'value')])
+def options(plot):
+    return
