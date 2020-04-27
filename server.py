@@ -8,7 +8,7 @@ from time import perf_counter
 import pandas as pd
 import os
 from __init__ import project_directory, non_preprocessed_dataset
-from ml.website.app import *
+from ml.website.app import app as mlapp
 # from pyspark import SparkContext, SparkConf
 
 # sc = SparkContext(conf=SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2"))
@@ -27,5 +27,8 @@ start = perf_counter()
 # df.to_excel(f'indeed_results_pp_{str(date.today())}.xlsx', index=False)
 
 finish = perf_counter()
+
+# if __name__ == '__main__':
+mlapp.run_server()
 
 print(f'{finish-start:0.5f} Seconds Time Taken for Processing at {str(datetime.now())}')
