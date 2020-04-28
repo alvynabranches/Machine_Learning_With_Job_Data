@@ -21,6 +21,7 @@ from __init__ import preprocessed_dataset
 df = pd.read_excel(preprocessed_dataset)
 df['Time'] = df['Time'].apply(text_to_date)
 df = df[df['Title_New'].notnull()]
+df['Categorical_Title'] = df['Title_New'].astype('category').cat.codes
 
 plots = ['Qualification, Experience vs Salary', 'Education vs Job title']
 
@@ -161,6 +162,9 @@ def show_experience(plot):
     ]
 )
 def update_prediction(plot, location, job, education, experience):
+    j = []
+    if job == '':
+        j = []
     if plot == plots[0]:
         return 
     elif plot == plots[1]:
@@ -187,4 +191,4 @@ def update_accuracy(plot, location, job, algorithm):
         y = df['Title_New'].astype('category').cat.codes.values
         for i in range(len(classifiers_str)):
             if classifiers_str[i] == algorithm:
-                return caccuracy(classifiers[i], x, y) 
+                return caccuracy(classifiers[i], x, y)

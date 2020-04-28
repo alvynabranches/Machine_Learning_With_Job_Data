@@ -13,21 +13,21 @@ from sklearn.tree import DecisionTreeClassifier, ExtraTreeClassifier
 from sklearn.metrics import accuracy_score
 
 classifiers = [
-    CalibratedClassifierCV, DummyClassifier, AdaBoostClassifier, BaggingClassifier, ExtraTreesClassifier, 
-    GradientBoostingClassifier, RandomForestClassifier, GaussianProcessClassifier, LogisticRegression, 
+    LogisticRegression, DummyClassifier, AdaBoostClassifier, BaggingClassifier, ExtraTreesClassifier, 
+    GradientBoostingClassifier, RandomForestClassifier, GaussianProcessClassifier, 
     PassiveAggressiveClassifier, Perceptron, RidgeClassifier, RidgeClassifierCV, SGDClassifier, KNeighborsClassifier, 
     MLPClassifier, LinearSVC, SVC, DecisionTreeClassifier, ExtraTreeClassifier
 ]
 
 classifiers_str = [
-    'CalibratedClassifierCV', 'DummyClassifier', 'AdaBoostClassifier', 'BaggingClassifier', 'ExtraTreesClassifier', 
-    'GradientBoostingClassifier', 'RandomForestClassifier', 'GaussianProcessClassifier', 'LogisticRegression', 
+    'LogisticRegression', 'DummyClassifier', 'AdaBoostClassifier', 'BaggingClassifier', 'ExtraTreesClassifier', 
+    'GradientBoostingClassifier', 'RandomForestClassifier', 'GaussianProcessClassifier', 
     'PassiveAggressiveClassifier', 'Perceptron', 'RidgeClassifier', 'RidgeClassifierCV', 'SGDClassifier', 'KNeighborsClassifier', 
     'MLPClassifier', 'LinearSVC', 'SVC', 'DecisionTreeClassifier', 'ExtraTreeClassifier'
 ]
 
-def predict(self, Classifier, x, y, new_x):
+def predict(Classifier, x, y, new_x):
     return Classifier().fit(x, y).predict(new_x)
 
-def accuracy(self, Classifier, x, y):
+def accuracy(Classifier, x, y):
     return accuracy_score(y, Classifier().fit(x, y).predict(x))
