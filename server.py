@@ -9,10 +9,13 @@ import pandas as pd
 import os
 from __init__ import project_directory, non_preprocessed_dataset
 from ml.website.app import app as mlapp
+from threaded import ThreadPooled, Threaded
 # from pyspark import SparkContext, SparkConf
 
 # sc = SparkContext(conf=SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2"))
 # sc.setLogLevel('WARN')
+
+ThreadPooled.configure(max_workers=1024)
 
 start = perf_counter()
 
@@ -29,6 +32,10 @@ start = perf_counter()
 finish = perf_counter()
 
 # if __name__ == '__main__':
-mlapp.run_server()
+@Threaded('mlapp', False, True)
+def startmlapp():
+    mlapp.run_server()
+
+startmlapp().start()
 
 print(f'{finish-start:0.5f} Seconds Time Taken for Processing at {str(datetime.now())}')
