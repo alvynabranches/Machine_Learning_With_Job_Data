@@ -72,18 +72,39 @@ app.layout = html.Main([
     ]),
     html.Br(),
     html.Div([
-        html.Label(['Options'], style={'width': '12%', 'display': 'inline-table'}),
+        html.Label(['Education'], id='educationlabel'),
         dcc.RadioItems(
-            id='algorithm',
-            # options=[{'label': e, 'value': e} for e in regressors_str],
-            # value=regressors_str[0],
+            id='education',
+            options=[
+                {'label': 'Tenth', 'value': 'Education_Tenth'}, 
+                {'label': 'Twelvth', 'value': 'Education_Twelvth'},
+                {'label': 'Bachelors', 'value':'Education_Bachelors'},
+                {'label': 'Masters', 'value': 'Education_Masters'},
+                {'label': 'Doctorate', 'value': 'Education_Doctorate'}
+            ],
+            value='Education_Bachelors',
             style={'width': '85%', 'display': 'inline-table'}
-        )
+        ),
+        html.Br(),
+        html.Label(['Experience'], id='experiencelabel'),
+        dcc.RadioItems(
+            id='experience',
+            options=[
+                {'label': 'XP_Fresher', 'value': 'XP_Fresher'},
+                {'label': 'XP_Experience', 'value': 'XP_Experience'}
+            ],
+            value=regressors_str[0],
+            style={'width': '85%', 'display': 'inline-table'}
+        ),
     ]),
     html.Br(),
-    html.Div(id='prediction'),
+    html.Div([
+        html.P(id='prediction')
+    ], style={}),
     html.Br(),
-    html.Div(id='accuracy'),
+    html.Div([
+        html.P(id='accuracy')
+    ], style={}),
     html.Br()
 ])
 
@@ -101,6 +122,69 @@ def dropdowns(plot):
     elif plot == plots[1]:
         return classifiers_str[0]
 
-@app.callback(Output('', ''), [Input('plottype', 'value')])
-def options(plot):
-    return
+@app.callback(Output('educationlabel', 'style'), [Input('plottype', 'value')])
+def show_educationlabel(plot):
+    if plot == plots[0]:
+        return {'width': '12%', 'display': 'inline-table'}
+    elif plot == plots[1]:
+        return {'width': '12%', 'display': 'inline-table'}
+
+@app.callback(Output('education', 'style'), [Input('plottype', 'value')])
+def show_education(plot):
+    if plot == plots[0]:
+        return {'width': '85%', 'display': 'inline-table'}
+    elif plot == plots[1]:
+        return {'width': '85%', 'display': 'inline-table'}
+
+@app.callback(Output('experiencelabel', 'style'), [Input('plottype', 'value')])
+def show_experiencelabel(plot):
+    if plot == plots[0]:
+        return {'width': '12%', 'display': 'inline-table'}
+    elif plot == plots[1]:
+        return {'width': '12%', 'display': 'none'}
+
+@app.callback(Output('experience', 'style'), [Input('plottype', 'value')])
+def show_experience(plot):
+    if plot == plots[0]:
+        return {'width': '85%', 'display': 'inline-table'}
+    elif plot == plots[1]:
+        return {'width': '85%', 'display': 'none'}
+
+@app.callback(
+    Output('prediction', 'children'), 
+    [
+        Input('plottype', 'value'), 
+        Input('location', 'value'), 
+        Input('jobtitle', 'value'),
+        Input('education', 'value'),
+        Input('experience', 'value')
+    ]
+)
+def update_prediction(plot, location, job, education, experience):
+    if plot == plots[0]:
+        return 
+    elif plot == plots[1]:
+        return 
+
+@app.callback(
+    Output('accuracy', 'children'), 
+    [
+        Input('plottype', 'value'), 
+        Input('location', 'value'), 
+        Input('jobtitle', 'value'),
+        Input('algorithm', 'value')
+    ]
+)
+def update_accuracy(plot, location, job, algorithm):
+    if plot == plots[0]:
+        x = df[df['Monthly_Salary'] != 0][['Education_Tenth', 'Education_Twelvth', 'Education_Bachelors', 'Education_Masters', 'Education_Doctorate', 'XP_Experience', 'XP_Fresher']].values
+        y = df[df['Monthly_Salary'] != 0]['Monthly_Salary'].values
+        for i in range(len(regressors_str)):
+            if regressors_str[i] == algorithm:
+                return raccuracy(regressors[i], x, y)
+    elif plot == plots[1]:
+        x = df[['Education_Tenth', 'Education_Twelvth', 'Education_Bachelors', 'Education_Masters', 'Education_Doctorate']].values
+        y = df['Title_New'].astype('category').cat.codes.values
+        for i in range(len(classifiers_str)):
+            if classifiers_str[i] == algorithm:
+                return caccuracy(classifiers[i], x, y) 
