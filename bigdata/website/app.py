@@ -86,15 +86,16 @@ app.layout = html.Main([
     ]
 )
 def show_filtered_data(title, location, company, description, salary, time, sortby):
-    where = f'''Title = "%{title}" and Location = "%{location}" and Company = "%{company}" 
-        and Description = "%{description}" and Salary = "%{salary}" and Time = "%{time}"'''
+    where = f'''Title like "%{title}%" and Location like "%{location}%" and Company like "%{company}%" 
+        and Description like "%{description}%" and Salary like "%{salary}%" and Time like "%{time}%"'''
     if sortby == 'random':
-        return spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://localhost:27017/jobDB.webscrappingdata")\
+        spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://localhost:27017/jobDB.webscrappingdata")\
             .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').show()
+        return 
     else:
-        return where
-        # spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://localhost:27017/jobDB.webscrappingdata")\
-        #     .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').where(where).sort(sortby).show()
+        spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://localhost:27017/jobDB.webscrappingdata")\
+            .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').where(where).sort(sortby).show()
+        return 
 
 if __name__ == '__main__':
     app.run_server()
