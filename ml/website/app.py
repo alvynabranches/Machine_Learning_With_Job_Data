@@ -110,14 +110,14 @@ app.layout = html.Main([
 ])
 
 @app.callback(Output('algorithm', 'options'), [Input('plottype', 'value')]) 
-def dropdowns(plot):
+def dropdownsoptions(plot):
     if plot == plots[0]:
         return [{'label': e, 'value': e} for e in regressors_str]
     elif plot == plots[1]:
         return [{'label': e, 'value': e} for e in classifiers_str]
 
 @app.callback(Output('algorithm', 'value'), [Input('plottype', 'value')]) 
-def dropdowns(plot):
+def dropdownsvalue(plot):
     if plot == plots[0]:
         return regressors_str[0]
     elif plot == plots[1]:
@@ -162,9 +162,8 @@ def show_experience(plot):
     ]
 )
 def update_prediction(plot, location, job, education, experience):
-    j = []
     if job == '':
-        j = []
+        pass
     if plot == plots[0]:
         return 
     elif plot == plots[1]:
