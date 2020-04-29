@@ -14,37 +14,37 @@ app.title = 'Big Data Project'
 app.layout = html.Main([
     html.Header(['Display Jobs'], style={'width':'100%','display':'block','text-align':'center'}),
     html.Div([
-        html.Label(['Title'], style={}),
+        html.Label(['Title'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='title', style={})
     ], style={}),
     html.Br(),
     html.Div([
-        html.Label(['Location'], style={}),
+        html.Label(['Location'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='location', style={})
     ], style={}),
     html.Br(),
     html.Div([
-        html.Label(['Company'], style={}),
+        html.Label(['Company'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='company', style={})
     ], style={}),
     html.Br(),
     html.Div([
-        html.Label(['Description'], style={}),
+        html.Label(['Description'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='description', style={})
     ], style={}),
     html.Br(),
     html.Div([
-        html.Label(['Salary'], style={}),
+        html.Label(['Salary'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='salary', style={})
     ], style={}),
     html.Br(),
     html.Div([
-        html.Label(['Time'], style={}),
+        html.Label(['Time'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='time', style={})
     ], style={}),
     html.Br(),
     html.Div([
-        html.Label(['Sort By'], style={}),
+        html.Label(['Sort By'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.RadioItems(
             id='sortby',
             options=[
