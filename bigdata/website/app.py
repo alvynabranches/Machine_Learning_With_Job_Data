@@ -8,12 +8,12 @@ from datetime import date, datetime
 from pymongo import MongoClient
 
 from __init__ import spark_mongo_server_connection_string, ip_address, port_no, db_name, col_name
-# from pyspark.sql import SparkSession
-# from pyspark import SparkContext,SparkConf
-# conf = SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2")
-# sc = SparkContext(conf=conf)
+from pyspark.sql import SparkSession
+from pyspark import SparkContext,SparkConf
+conf = SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2")
+sc = SparkContext(conf=conf)
 
-# spark = SparkSession.builder.appName("MongoDBIntegration").config("spark.mongodb.input.uri", spark_mongo_server_connection_string).config("spark.mongodb.output.uri", spark_mongo_server_connection_string).getOrCreate()
+spark = SparkSession.builder.appName("MongoDBIntegration").config("spark.mongodb.input.uri", spark_mongo_server_connection_string).config("spark.mongodb.output.uri", spark_mongo_server_connection_string).getOrCreate()
 
 mongo = MongoClient(ip_address, port_no)
 col = mongo[db_name][col_name]
@@ -27,32 +27,32 @@ app.layout = html.Main([
     html.Header(['Display Jobs'], style={'width':'100%','display':'block','text-align':'center'}),
     html.Div([
         html.Label(['Title'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='title', value='', style={})
+        dcc.Input(id='title', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Location'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='location', value='', style={})
+        dcc.Input(id='location', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Company'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='company', value='', style={})
+        dcc.Input(id='company', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Description'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='description', value='', style={})
+        dcc.Input(id='description', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Salary'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='salary', value='', style={})
+        dcc.Input(id='salary', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Time'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='time', value='', style={})
+        dcc.Input(id='time', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
     html.Div([
@@ -65,14 +65,15 @@ app.layout = html.Main([
                 {'label': 'Company', 'value': 'Company'}, 
                 {'label': 'Description', 'value': 'Description'}, 
                 {'label': 'Salary', 'value': 'Salary'}, 
-                {'label': 'Time', 'value': 'Time'}, ],
+                {'label': 'Time', 'value': 'Time'}, 
+            ],
             value='random',
-            style={}
+            style={'width': '85%', 'display': 'inline-table'}
         )
     ]),
     html.Br(),
     html.Div([
-        html.P(id='displayarea', style={'align': 'center', 'text-align': 'center'})
+        html.Table(id='displayarea', style={'align': 'center', 'text-align': 'center'})
     ])
 ])
 
@@ -91,10 +92,12 @@ def show_filtered_data(title, location, company, description, salary, time, sort
     where = f'''Title like "%{title}%" and Location like "%{location}%" and Company like "%{company}%" 
         and Description like "%{description}%" and Salary like "%{salary}%" and Time like "%{time}%"'''
     if sortby == 'random':
-        # spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://localhost:27017/jobDB.webscrappingdata")\
-        #     .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').show()
+        spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://127.0.0.1/jobDB.webscrappingdata")\
+            .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').show()
         return 
     else:
-        # spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://localhost:27017/jobDB.webscrappingdata")\
-        #     .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').where(where).sort(sortby).show()
+        spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://127.0.0.1/jobDB.webscrappingdata")\
+            .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').where(where).sort(sortby).show()
         return 
+
+app.run_server()
