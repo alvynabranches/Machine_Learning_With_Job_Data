@@ -10,13 +10,13 @@ import os
 from __init__ import project_directory, non_preprocessed_dataset, spark_mongo_server_connection_string
 from ml.website.app import app as mlapp
 from bigdata.website.app import app as bigdataapp
-from threaded import ThreadPooled, Threaded
+# from threaded import ThreadPooled, Threaded
 # from pyspark import SparkContext, SparkConf
 
 # sc = SparkContext(conf=SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2"))
 # sc.setLogLevel('WARN')
 
-ThreadPooled.configure(max_workers=1024)
+# ThreadPooled.configure(max_workers=1024)
 
 start = perf_counter()
 
@@ -32,16 +32,7 @@ start = perf_counter()
 
 finish = perf_counter()
 
-# if __name__ == '__main__':
-@Threaded('mlapp', False, True)
-def startmlapp():
-    mlapp.run_server()
-
-@Threaded('bigdataapp', False, True)
-def startbigdataapp():
-    bigdataapp.run_server()
-
-startmlapp().start()
-startbigdataapp().start()
+# mlapp.run_server()
+bigdataapp.run_server()
 
 print(f'{finish-start:0.5f} Seconds Time Taken for Processing at {str(datetime.now())}')

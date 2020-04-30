@@ -5,16 +5,18 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import pandas as pd
 from datetime import date, datetime
+from pymongo import MongoClient
 
-from __init__ import spark_mongo_server_connection_string
+from __init__ import spark_mongo_server_connection_string, ip_address, port_no, db_name, col_name
 # from pyspark.sql import SparkSession
-# from pyspark.sql import Row
-# from pyspark.sql import functions
 # from pyspark import SparkContext,SparkConf
 # conf = SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2")
 # sc = SparkContext(conf=conf)
 
 # spark = SparkSession.builder.appName("MongoDBIntegration").config("spark.mongodb.input.uri", spark_mongo_server_connection_string).config("spark.mongodb.output.uri", spark_mongo_server_connection_string).getOrCreate()
+
+mongo = MongoClient(ip_address, port_no)
+col = mongo[db_name][col_name]
 
 app = dash.Dash()
 server = app.server
@@ -96,5 +98,3 @@ def show_filtered_data(title, location, company, description, salary, time, sort
         # spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://localhost:27017/jobDB.webscrappingdata")\
         #     .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').where(where).sort(sortby).show()
         return 
-
-app.run_server()
