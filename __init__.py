@@ -20,10 +20,12 @@ non_preprocessed_dataset = project_directory + 'indeed_results.xlsx'
 preprocessed_dataset = project_directory + 'indeed_results_pp_2020-04-27.xlsx'
 
 # for writing on the mongodb
-ip_address_and_port_no = '127.0.0.1'
+ip_address = '127.0.0.1'
+port_no = 27017
 db_name = 'jobDB'
 col_name = 'webscrappingdata'
-spark_mongo_server_connection_string = 'mongodb://' + ip_address_and_port_no + '/' + db_name + '.' + col_name
+spark_mongo_server_connection_string = 'mongodb://' + ip_address + '/' + db_name + '.' + col_name
+# spark_mongo_server_connection_string = 'mongodb://' + ip_address + ':' + str(port_no) + '/' + db_name + '.' + col_name
 
 PreProcessing_Done = True
 Machine_Learning_Done = True

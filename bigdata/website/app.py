@@ -97,3 +97,4 @@ def show_filtered_data(title, location, company, description, salary, time, sort
         #     .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').where(where).sort(sortby).show()
         return 
 
+app.run_server()

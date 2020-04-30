@@ -11,12 +11,12 @@ from __init__ import project_directory, non_preprocessed_dataset, spark_mongo_se
 from ml.website.app import app as mlapp
 from bigdata.website.app import app as bigdataapp
 from threaded import ThreadPooled, Threaded
-from pyspark import SparkContext, SparkConf
-
-ThreadPooled.configure(max_workers=1024)
+# from pyspark import SparkContext, SparkConf
 
 # sc = SparkContext(conf=SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2"))
 # sc.setLogLevel('WARN')
+
+ThreadPooled.configure(max_workers=1024)
 
 start = perf_counter()
 
