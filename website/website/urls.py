@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from bigdata import views as bdviews
+from ml import views as mlviews
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('bigdata/', bdviews.index),
+    path('ml/', mlviews.index)
 ]

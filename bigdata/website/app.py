@@ -79,12 +79,12 @@ def show_filtered_data(title, location, company, description, salary, time, sort
     if sortby == 'random':
         where = f'''Title = "%{title}%" and Location = "%{location}%" and Company = "%{company}%" 
         and Description = "%{description}%" and Salary = "%{salary}%" and Time = "%{time}%"'''
-        return f'{where}'
+        return # f'{where}'
     else:
         where = f'''Title = "%{title}%" and Location = "%{location}%" and Company = "%{company}%" 
         and Description = "%{description}%" and Salary = "%{salary}%" and Time = "%{time}%"'''
         sort = f'''{sortby} asc'''
-        return [html.P([f'{where}', html.Br(), f'{sort}'])]
+        return # [html.P([f'{where}', html.Br(), f'{sort}'])]
 
 if __name__ == '__main__':
     app.run_server()
