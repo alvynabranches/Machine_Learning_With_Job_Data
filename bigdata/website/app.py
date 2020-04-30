@@ -6,6 +6,16 @@ import plotly.graph_objs as go
 import pandas as pd
 from datetime import date, datetime
 
+from __init__ import spark_mongo_server_connection_string
+# from pyspark.sql import SparkSession
+# from pyspark.sql import Row
+# from pyspark.sql import functions
+# from pyspark import SparkContext,SparkConf
+# conf = SparkConf().set("spark.jars.packages", "org.mongodb.spark:mongo-spark-connector_2.11:2.3.2")
+# sc = SparkContext(conf=conf)
+
+# spark = SparkSession.builder.appName("MongoDBIntegration").config("spark.mongodb.input.uri", spark_mongo_server_connection_string).config("spark.mongodb.output.uri", spark_mongo_server_connection_string).getOrCreate()
+
 app = dash.Dash()
 server = app.server
 
@@ -15,32 +25,32 @@ app.layout = html.Main([
     html.Header(['Display Jobs'], style={'width':'100%','display':'block','text-align':'center'}),
     html.Div([
         html.Label(['Title'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='title', style={})
+        dcc.Input(id='title', value='', style={})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Location'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='location', style={})
+        dcc.Input(id='location', value='', style={})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Company'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='company', style={})
+        dcc.Input(id='company', value='', style={})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Description'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='description', style={})
+        dcc.Input(id='description', value='', style={})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Salary'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='salary', style={})
+        dcc.Input(id='salary', value='', style={})
     ], style={}),
     html.Br(),
     html.Div([
         html.Label(['Time'], style={'width': '10%', 'display': 'inline-table'}),
-        dcc.Input(id='time', style={})
+        dcc.Input(id='time', value='', style={})
     ], style={}),
     html.Br(),
     html.Div([
@@ -76,15 +86,14 @@ app.layout = html.Main([
     ]
 )
 def show_filtered_data(title, location, company, description, salary, time, sortby):
+    where = f'''Title like "%{title}%" and Location like "%{location}%" and Company like "%{company}%" 
+        and Description like "%{description}%" and Salary like "%{salary}%" and Time like "%{time}%"'''
     if sortby == 'random':
-        where = f'''Title = "%{title}%" and Location = "%{location}%" and Company = "%{company}%" 
-        and Description = "%{description}%" and Salary = "%{salary}%" and Time = "%{time}%"'''
-        return # f'{where}'
+        # spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://localhost:27017/jobDB.webscrappingdata")\
+        #     .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').show()
+        return 
     else:
-        where = f'''Title = "%{title}%" and Location = "%{location}%" and Company = "%{company}%" 
-        and Description = "%{description}%" and Salary = "%{salary}%" and Time = "%{time}%"'''
-        sort = f'''{sortby} asc'''
-        return # [html.P([f'{where}', html.Br(), f'{sort}'])]
+        # spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://localhost:27017/jobDB.webscrappingdata")\
+        #     .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').where(where).sort(sortby).show()
+        return 
 
-if __name__ == '__main__':
-    app.run_server()
