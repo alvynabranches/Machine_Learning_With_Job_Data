@@ -72,9 +72,10 @@ app.layout = html.Main([
         )
     ]),
     html.Br(),
-    html.Div([
-        html.Table(id='displayarea', style={'align': 'center', 'text-align': 'center'})
-    ])
+    html.Div(
+        id='displayarea', 
+        style={'align': 'center', 'text-align': 'center'}
+    )
 ])
 
 @app.callback(Output('displayarea', 'children'), 
@@ -94,10 +95,33 @@ def show_filtered_data(title, location, company, description, salary, time, sort
     if sortby == 'random':
         spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://127.0.0.1/jobDB.webscrappingdata")\
             .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').show()
-        return 
+        rows = [
+            html.Tr(
+                [
+                    html.Th(['Title']), 
+                    html.Th(['Location']), 
+                    html.Th(['Company']), 
+                    html.Th(['Description']), 
+                    html.Th(['Salary']), 
+                    html.Th(['Time'])
+                ]
+            )
+        ]
+        for x in col.find():
+            rows.append(html.Tr([
+                html.Td([x['Title']]),
+                html.Td([x['Location']]),
+                html.Td([x['Company']]),
+                html.Td([x['Description']]),
+                html.Td([x['Salary']]),
+                html.Td([x['Time']])
+            ]))
+
+        return [html.Table(children=rows)]
     else:
         spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://127.0.0.1/jobDB.webscrappingdata")\
             .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').where(where).sort(sortby).show()
         return 
 
 # app.run_server()
+# [html.Tr([html.Td([x['Title']]), html.Td([x['Location']]), html.Td(['Company']), html.Td([x['Description']]), html.Td([x['Salary']]), html.Td([x['Time']])]) for x in col.find()]
