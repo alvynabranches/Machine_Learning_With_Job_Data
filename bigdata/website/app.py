@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import pandas as pd
 from datetime import date, datetime
-from pymongo import MongoClient
+from pymongo import MongoClient, ASCENDING, DESCENDING
 
 from __init__ import spark_mongo_server_connection_string, ip_address, port_no, db_name, col_name
 from pyspark.sql import SparkSession
@@ -107,7 +107,7 @@ def show_filtered_data(title, location, company, description, salary, time, sort
                 ]
             )
         ]
-        for x in col.find():
+        for x in col.find({'$and':[{'Title': {'$regex': title}}, {'Location': {'$regex': location}}, {'Company': {'$regex': company}}, {'Description': {'$regex': description}}, {'Salary': {'$regex': salary}}, {'Time': {'$regex': time}}]}):
             rows.append(html.Tr([
                 html.Td([x['Title']]),
                 html.Td([x['Location']]),
@@ -121,7 +121,28 @@ def show_filtered_data(title, location, company, description, salary, time, sort
     else:
         spark.read.format("com.mongodb.spark.sql.DefaultSource").option("spark.mongodb.input.uri", "mongodb://127.0.0.1/jobDB.webscrappingdata")\
             .load().select('Title', 'Location', 'Company', 'Description', 'Salary', 'Time').where(where).sort(sortby).show()
-        return 
+        rows = [
+            html.Tr(
+                [
+                    html.Th(['Title']), 
+                    html.Th(['Location']), 
+                    html.Th(['Company']), 
+                    html.Th(['Description']), 
+                    html.Th(['Salary']), 
+                    html.Th(['Time'])
+                ]
+            )
+        ]
+        for x in col.find({'$and':[{'Title': {'$regex': title}}, {'Location': {'$regex': location}}, {'Company': {'$regex': company}}, {'Description': {'$regex': description}}, {'Salary': {'$regex': salary}}, {'Time': {'$regex': time}}]}).sort([(sortby, ASCENDING)]):
+            rows.append(html.Tr([
+                html.Td([x['Title']]),
+                html.Td([x['Location']]),
+                html.Td([x['Company']]),
+                html.Td([x['Description']]),
+                html.Td([x['Salary']]),
+                html.Td([x['Time']])
+            ]))
+        return [html.Table(children=rows)]
 
 # app.run_server()
 # [html.Tr([html.Td([x['Title']]), html.Td([x['Location']]), html.Td(['Company']), html.Td([x['Description']]), html.Td([x['Salary']]), html.Td([x['Time']])]) for x in col.find()]
