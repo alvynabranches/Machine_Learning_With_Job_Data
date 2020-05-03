@@ -14,7 +14,12 @@ def text_to_date(text):
 def apply_preprocessing_on_fields(df):
     filterwarnings('ignore')
     '''
-        NOTE: df should be a pandas DataFrame
+
+        This function is used to apply preprocessing on the unpreprocessed dataset.
+        df: Pandas DataFrame
+        NOTE: df should be a Pandas DataFrame
+        ANOTHER NOTE: If the function is applied to preprocessed dataset than it can return an error.
+
     '''
     # df = df[(df['Title'].notnull()) & (df['Description'].notnull()) & (df['Salary'].notnull())]
     df['Title'] = df['Title'].apply(lambda x: preprocessing_title(x))
@@ -31,6 +36,7 @@ def apply_preprocessing_on_fields(df):
     df['Salary_Unit_Week'] = 0
     df['Salary_Unit_Day'] = 0
     df['Salary_Unit_Hour'] = 0
+
     for i in range(df.shape[0]):
         if df['Salary'][i].endswith('month'):
             df['Salary_Unit_Month'][i] = 1
@@ -118,14 +124,18 @@ def apply_preprocessing_on_fields(df):
         
     df['Skills_Description'] = df['Description'].apply(lambda x: get_skills(x))
     df['Skills_Title'] = df['Title'].apply(lambda x: get_skills(x))
+
     df['Skills'] = df['Skills_Description'] + df['Skills_Title']
+
     df['Skills'] = df['Skills'].apply(lambda x: x[1:])
+
     df['Skills'] = df['Skills'].apply(lambda x: unique_skills(x))
 
     df['Position_Junior'] = df['Title'].apply(lambda x: get_experience_junior(x))
     df['Position_Senior'] = df['Title'].apply(lambda x: get_experience_senior(x))
 
     df['Internship'] = 0
+
     for i in range(df.shape[0]):
         if df['Description'][i].find('internship') != -1 or df['Description'][i].find('intern') != -1:
             df['Internship'][i] = 1
@@ -140,3 +150,4 @@ def apply_preprocessing_on_fields(df):
     df['Time'] = df['Time'].apply(text_to_date)
     
     return df
+    

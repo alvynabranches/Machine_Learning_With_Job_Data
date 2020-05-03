@@ -19,8 +19,11 @@ from ml.algorithms.base_regressors import predict as rpredict, accuracy as raccu
 from __init__ import preprocessed_dataset
 
 df = pd.read_excel(preprocessed_dataset)
+
 df['Time'] = df['Time'].apply(text_to_date)
+
 df = df[df['Title_New'].notnull()]
+
 df['Categorical_Title'] = df['Title_New'].astype('category').cat.codes
 
 plots = ['Qualification, Experience vs Salary', 'Education vs Job title']
@@ -28,8 +31,11 @@ plots = ['Qualification, Experience vs Salary', 'Education vs Job title']
 external_stylesheets = ['style.css']
 
 app = dash.Dash(external_stylesheets=external_stylesheets)
+
 server = app.server
+
 app.title = 'ML Mini Project'
+
 app.layout = html.Main([
     html.Header('Job Prediction', style={'width':'100%','display':'block','text-align':'center'}),
     html.Div([
@@ -42,6 +48,7 @@ app.layout = html.Main([
         )
     ], style={'width': '100%'}),
     html.Br(),
+
     html.Div([
         html.Label(['Job Title'], style={'width': '12%', 'display': 'inline-table'}),
         dcc.Dropdown(
@@ -52,6 +59,7 @@ app.layout = html.Main([
         )
     ]),
     html.Br(),
+
     html.Div([
         html.Label(['Location'], style={'width': '12%', 'display': 'inline-table'}),
         dcc.Dropdown(
@@ -62,6 +70,7 @@ app.layout = html.Main([
         )
     ]),
     html.Br(),
+
     html.Div([
         html.Label(['Algorithm'], style={'width': '12%', 'display': 'inline-table'}),
         dcc.Dropdown(
@@ -72,6 +81,7 @@ app.layout = html.Main([
         )
     ]),
     html.Br(),
+
     html.Div([
         html.Label(['Education'], id='educationlabel'),
         dcc.RadioItems(
@@ -87,6 +97,7 @@ app.layout = html.Main([
             style={'width': '85%', 'display': 'inline-table'}
         ),
         html.Br(),
+
         html.Label(['Experience'], id='experiencelabel'),
         dcc.RadioItems(
             id='experience',
@@ -99,18 +110,27 @@ app.layout = html.Main([
         ),
     ]),
     html.Br(),
+
     html.Div([
         html.P(id='prediction')
     ], style={}),
     html.Br(),
+
     html.Div([
         html.P(id='accuracy')
     ], style={}),
     html.Br()
+
 ])
 
 @app.callback(Output('algorithm', 'options'), [Input('plottype', 'value')]) 
 def dropdownsoptions(plot):
+    '''
+
+        This function is used to return the options for algorithm when a value of plottype is passed.
+        plot: passes the plottype value.
+
+    '''
     if plot == plots[0]:
         return [{'label': e, 'value': e} for e in regressors_str]
     elif plot == plots[1]:
@@ -118,6 +138,12 @@ def dropdownsoptions(plot):
 
 @app.callback(Output('algorithm', 'value'), [Input('plottype', 'value')]) 
 def dropdownsvalue(plot):
+    '''
+
+        This function is used to return the value for algorithm when a value of plottype is passed.
+        plot: passes the plottype value.
+
+    '''
     if plot == plots[0]:
         return regressors_str[0]
     elif plot == plots[1]:
@@ -125,6 +151,12 @@ def dropdownsvalue(plot):
 
 @app.callback(Output('educationlabel', 'style'), [Input('plottype', 'value')])
 def show_educationlabel(plot):
+    '''
+
+        This function is used to return the style for educationlabel when a value of plottype is passed.
+        plot: passes the plottype value.
+
+    '''
     if plot == plots[0]:
         return {'width': '12%', 'display': 'inline-table'}
     elif plot == plots[1]:
@@ -132,6 +164,12 @@ def show_educationlabel(plot):
 
 @app.callback(Output('education', 'style'), [Input('plottype', 'value')])
 def show_education(plot):
+    '''
+
+        This function is used to return the style for education when a value of plottype is passed.
+        plot: passes the plottype value.
+
+    '''
     if plot == plots[0]:
         return {'width': '85%', 'display': 'inline-table'}
     elif plot == plots[1]:
@@ -139,6 +177,12 @@ def show_education(plot):
 
 @app.callback(Output('experiencelabel', 'style'), [Input('plottype', 'value')])
 def show_experiencelabel(plot):
+    '''
+
+        This function is used to return the style for education when a value of plottype is passed.
+        plot: passes the plottype value.
+
+    '''
     if plot == plots[0]:
         return {'width': '12%', 'display': 'inline-table'}
     elif plot == plots[1]:
@@ -146,6 +190,12 @@ def show_experiencelabel(plot):
 
 @app.callback(Output('experience', 'style'), [Input('plottype', 'value')])
 def show_experience(plot):
+    '''
+
+        This function is used to return the style for experience when a value of plottype is passed.
+        plot: passes the plottype value.
+
+    '''
     if plot == plots[0]:
         return {'width': '85%', 'display': 'inline-table'}
     elif plot == plots[1]:
@@ -162,6 +212,16 @@ def show_experience(plot):
     ]
 )
 def update_prediction(plot, location, job, education, experience):
+    '''
+
+        This function is used to return the style for education when a value of plottype is passed.
+        plot: passes the plottype value.
+        location: 
+        job: 
+        education: 
+        experience:
+        
+    '''
     if job == '':
         pass
     if plot == plots[0]:
@@ -179,6 +239,15 @@ def update_prediction(plot, location, job, education, experience):
     ]
 )
 def update_accuracy(plot, location, job, algorithm):
+    '''
+
+        This function is used to return the style for education when a value of plottype is passed.
+        plot: passes the plottype value.
+        location: 
+        job:
+        algorithm:
+
+    '''
     if plot == plots[0]:
         x = df[df['Monthly_Salary'] != 0][['Education_Tenth', 'Education_Twelvth', 'Education_Bachelors', 'Education_Masters', 'Education_Doctorate', 'XP_Experience', 'XP_Fresher']].values
         y = df[df['Monthly_Salary'] != 0]['Monthly_Salary'].values

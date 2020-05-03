@@ -3,7 +3,7 @@ chrome_version = '81'
 
 project_directory = './'
 
-os = 'windows'
+os = 'linux'
 
 chrome_driver_location = project_directory + 'chromedriver/'+ chrome_version +'/chromedriver'
 

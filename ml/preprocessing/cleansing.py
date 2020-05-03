@@ -1,6 +1,9 @@
 def preprocessing_description(text):
     '''
-        This function is used to remove the special characters and the unrequired text from description column
+        
+        This function is used to remove the special characters and the unrequired text from description column.
+        text: input passed by the apply function.
+
     '''
     text = str(text).lower()
 
@@ -59,7 +62,10 @@ def preprocessing_description(text):
 
 def preprocessing_company(text):
     '''
-        This function is used to remove the special characters and the unrequired text from company column
+
+        This function is used to remove the special characters and the unrequired text from company column.
+        text: input passed by the apply function.
+
     '''
     text = str(text)
     for _ in range(10):
@@ -101,6 +107,12 @@ def preprocessing_company(text):
     return text
 
 def preprocessing_title(text):
+    '''
+
+        This function is used to remove the special characters and the unrequired text from title column.
+        text: input passed by the apply function.
+
+    '''
     text = str(text)
     for _ in range(10):
         text = text.replace('&', 'and')
@@ -142,7 +154,10 @@ def preprocessing_title(text):
 
 def preprocessing_location(text):
     '''
-        This function is used to remove the special characters and the unrequired text from location column
+
+        This function is used to remove the special characters and the unrequired text from location column.
+        text: input passed by the apply function.
+
     '''
     text = str(text)
     for _ in range(10):
@@ -185,7 +200,10 @@ def preprocessing_location(text):
 
 def preprocessing_salary(text):
     '''
-        This function is used to remove the special characters and the unrequired text from salary column
+
+        This function is used to remove the special characters and the unrequired text from salary column.
+        text: input passed by the apply function.
+
     '''
     text = str(text)
     for _ in range(20):
@@ -233,8 +251,11 @@ def preprocessing_salary(text):
 
 def salary_remove_unit(text):
     '''
+
         This function is used to remove the salary unit from the salary field.
         NOTE: This function should only be used after removing the special characters and the extra spaces from it.
+        text: input passed by the apply function.
+
     '''
     text = str(text)
     text = text.replace(' month', '')
@@ -247,6 +268,12 @@ def salary_remove_unit(text):
     return text
 
 def get_salary_average(text):
+    '''
+
+        This function is used to get the salary average.
+        text: input passed by the apply function.
+
+    '''
     text = str(text)
     if text != '':
         if len(text.split()) == 2:
@@ -257,12 +284,24 @@ def get_salary_average(text):
         return 0
 
 def get_experience_junior(text):
+    '''
+
+        This function is used to get if the job is related to a junior position.
+        text: input passed by the apply function.
+
+    '''
     if text.find(' jr') != -1 or text.find('jr ') != -1 or text.find('junior') != -1:
         return 1
     else:
         return 0
 
 def get_experience_senior(text):
+    '''
+
+        This function is used to get if the job is related to a senior position.
+        text: input passed by the apply function.
+
+    '''
     if text.find('senior') != -1 or text.find('sr ') != -1 or text.find(' sr') != -1:
         return 1
     else:
@@ -270,8 +309,11 @@ def get_experience_senior(text):
 
 def get_skills(text):
     '''
+
         This function is used to get the skills from the description and title column. 
         NOTE: This function should only be used after removing the special characters and the extra spaces from it.
+        text: input passed by the apply function.
+
     '''
     text = str(text)
     skills = ''
@@ -596,12 +638,24 @@ def get_skills(text):
     return skills
 
 def unique_skills(text):
+    '''
+
+        This function is used to get the unique skills from the title and description column
+        text: input passed by the apply function.
+
+    '''
     text = str(text)
     text = list(set(text.split('|')))
     text = '|'.join(text)
     return text
 
 def transform_title(text):
+    '''
+
+        This function is used to get only the titles that are related to IT Industry
+        text: input passed by the apply function.
+
+    '''
     text = str(text)
     if text.find('data sci') != -1:
         return 'data scientist'
@@ -641,3 +695,4 @@ def transform_title(text):
         return 'embedded engineer'
     else:
         return None
+        

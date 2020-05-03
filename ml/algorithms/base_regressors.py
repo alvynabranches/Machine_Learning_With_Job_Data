@@ -18,24 +18,56 @@ from sklearn.metrics import mean_squared_error
 from numpy import sqrt
 
 regressors = [
-    LinearRegression, AdaBoostRegressor, BaggingRegressor, ExtraTreeRegressor, GradientBoostingRegressor, 
-    TransformedTargetRegressor, PLSRegression, DummyRegressor, RandomForestRegressor, GaussianProcessRegressor, ARDRegression, 
-    BayesianRidge, ElasticNet, ElasticNetCV, HuberRegressor, MultiTaskLasso, MultiTaskLassoCV, OrthogonalMatchingPursuit, 
-    OrthogonalMatchingPursuitCV, PassiveAggressiveRegressor, Ridge, RidgeCV, RANSACRegressor, SGDRegressor, TheilSenRegressor, 
-    KNeighborsRegressor, MLPRegressor, NuSVR, SVR, DecisionTreeRegressor, ExtraTreeRegressor
+
+    LinearRegression, AdaBoostRegressor, BaggingRegressor, 
+    ExtraTreeRegressor, GradientBoostingRegressor, 
+    TransformedTargetRegressor, PLSRegression, DummyRegressor, 
+    RandomForestRegressor, GaussianProcessRegressor, ARDRegression, 
+    BayesianRidge, ElasticNet, ElasticNetCV, HuberRegressor, 
+    MultiTaskLasso, MultiTaskLassoCV, OrthogonalMatchingPursuit, 
+    OrthogonalMatchingPursuitCV, PassiveAggressiveRegressor, 
+    Ridge, RidgeCV, RANSACRegressor, SGDRegressor, TheilSenRegressor, 
+    KNeighborsRegressor, MLPRegressor, NuSVR, SVR, 
+    DecisionTreeRegressor, ExtraTreeRegressor
+
 ]
 
 regressors_str = [
-    'LinearRegression', 'AdaBoostRegressor', 'BaggingRegressor', 'ExtraTreeRegressor', 'GradientBoostingRegressor', 
-    'TransformedTargetRegressor', 'PLSRegression', 'DummyRegressor', 'RandomForestRegressor', 'GaussianProcessRegressor', 
-    'ARDRegression', 'BayesianRidge', 'ElasticNet', 'ElasticNetCV', 'HuberRegressor', 'MultiTaskLasso', 'MultiTaskLassoCV', 
-    'OrthogonalMatchingPursuit', 'OrthogonalMatchingPursuitCV', 'PassiveAggressiveRegressor', 'Ridge', 'RidgeCV', 'RANSACRegressor', 
-    'SGDRegressor', 'TheilSenRegressor', 'KNeighborsRegressor', 'MLPRegressor', 'NuSVR', 'SVR', 'DecisionTreeRegressor', 
+
+    'LinearRegression', 'AdaBoostRegressor', 
+    'BaggingRegressor', 'ExtraTreeRegressor', 'GradientBoostingRegressor', 
+    'TransformedTargetRegressor', 'PLSRegression', 
+    'DummyRegressor', 'RandomForestRegressor', 'GaussianProcessRegressor', 
+    'ARDRegression', 'BayesianRidge', 'ElasticNet', 
+    'ElasticNetCV', 'HuberRegressor', 'MultiTaskLasso', 'MultiTaskLassoCV', 
+    'OrthogonalMatchingPursuit', 'OrthogonalMatchingPursuitCV', 
+    'PassiveAggressiveRegressor', 'Ridge', 'RidgeCV', 'RANSACRegressor', 
+    'SGDRegressor', 'TheilSenRegressor', 'KNeighborsRegressor', 
+    'MLPRegressor', 'NuSVR', 'SVR', 'DecisionTreeRegressor', 
     'ExtraTreeRegressor'
+    
 ]
 
 def predict(Regressor, x, y, new_x):
+    '''
+
+        This function return out the predicts the new output of a following new input by a Regressor.
+        Regressor: The Regressor class should be passed here.
+        x: The x variable in the dataset.
+        y: The y variable in the dataset.
+        new_x: The new x which we want to predict the output of.
+
+    '''
     return Regressor().fit(x, y).predict(new_x)
 
 def accuracy(Regressor, x, y):
+    '''
+
+        This function is used to return out the accuracy of the Regressor.
+        It return the RMSE score / by the actual y and takes its mean.
+        Regressor: The Regressor class should be passed here.
+        x: The x variable in the dataset.
+        y: The y variable in the dataset.
+
+    '''
     return (1 - (sqrt(mean_squared_error(y, Regressor().fit(x, y).predict(x))) / y).mean())

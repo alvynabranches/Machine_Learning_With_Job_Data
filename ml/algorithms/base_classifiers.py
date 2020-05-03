@@ -13,21 +13,45 @@ from sklearn.tree import DecisionTreeClassifier, ExtraTreeClassifier
 from sklearn.metrics import accuracy_score
 
 classifiers = [
-    LogisticRegression, DummyClassifier, AdaBoostClassifier, BaggingClassifier, ExtraTreesClassifier, 
+
+    LogisticRegression, DummyClassifier, AdaBoostClassifier, 
+    BaggingClassifier, ExtraTreesClassifier, 
     GradientBoostingClassifier, RandomForestClassifier, GaussianProcessClassifier, 
-    PassiveAggressiveClassifier, Perceptron, RidgeClassifier, RidgeClassifierCV, SGDClassifier, KNeighborsClassifier, 
-    MLPClassifier, LinearSVC, SVC, DecisionTreeClassifier, ExtraTreeClassifier
+    PassiveAggressiveClassifier, Perceptron, RidgeClassifier, 
+    RidgeClassifierCV, SGDClassifier, KNeighborsClassifier, 
+    MLPClassifier, LinearSVC, SVC, DecisionTreeClassifier, 
+    ExtraTreeClassifier
+
 ]
 
 classifiers_str = [
-    'LogisticRegression', 'DummyClassifier', 'AdaBoostClassifier', 'BaggingClassifier', 'ExtraTreesClassifier', 
-    'GradientBoostingClassifier', 'RandomForestClassifier', 'GaussianProcessClassifier', 
-    'PassiveAggressiveClassifier', 'Perceptron', 'RidgeClassifier', 'RidgeClassifierCV', 'SGDClassifier', 'KNeighborsClassifier', 
-    'MLPClassifier', 'LinearSVC', 'SVC', 'DecisionTreeClassifier', 'ExtraTreeClassifier'
+
+    'LogisticRegression', 'DummyClassifier', 
+    'AdaBoostClassifier', 'BaggingClassifier', 'ExtraTreesClassifier', 
+    'GradientBoostingClassifier', 'RandomForestClassifier', 
+    'GaussianProcessClassifier', 
+    'PassiveAggressiveClassifier', 'Perceptron', 
+    'RidgeClassifier', 'RidgeClassifierCV', 'SGDClassifier', 'KNeighborsClassifier', 
+    'MLPClassifier', 'LinearSVC', 'SVC', 
+    'DecisionTreeClassifier', 'ExtraTreeClassifier'
+
 ]
 
 def predict(Classifier, x, y, new_x):
+    '''
+        This function return out the predicts the new output of a following new input by a Classifier.
+        Classifier: The Classifier class should be passed here.
+        x: The x variable in the dataset.
+        y: The y variable in the dataset.
+        new_x: The new x which we want to predict the output of.
+    '''
     return Classifier().fit(x, y).predict(new_x)
 
 def accuracy(Classifier, x, y):
+    '''
+        This function is used to return out the accuracy of the Classifier.
+        Classifier: The Classifier class should be passed here.
+        x: The x variable in the dataset.
+        y: The y variable in the dataset.
+    '''
     return accuracy_score(y, Classifier().fit(x, y).predict(x))

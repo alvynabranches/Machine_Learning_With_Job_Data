@@ -21,7 +21,7 @@ from bigdata.website.app import app as bigdataapp
 
 start = perf_counter()
 
-# multiple_threaded_function(start=0, end=3, no_of_threads=3, location_list=unique_locations, job_list=unique_jobs)
+multiple_threaded_function(start=0, end=3, no_of_threads=3, location_list=unique_locations, job_list=unique_jobs)
 
 # merge_excel_files()
 
@@ -33,7 +33,7 @@ start = perf_counter()
 
 finish = perf_counter()
 
-# mlapp.run_server()
-bigdataapp.run_server()
+mlapp.run_server()
+# bigdataapp.run_server()
 
 print(f'{finish-start:0.5f} Seconds Time Taken for Processing at {str(datetime.now())}')

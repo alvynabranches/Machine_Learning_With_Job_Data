@@ -77,7 +77,7 @@ def parse(keyword, place):
 				# Cleaning data
 				job_name = ''.join(raw_job_name).strip('–') if raw_job_name else None
 				job_location = ''.join(raw_lob_loc) if raw_lob_loc else None
-				raw_state = re.findall(",\s?(.*)\s?", job_location)
+				raw_state = re.findall(r",\s?(.*)\s?", job_location)
 				state = ''.join(raw_state).strip()
 				raw_city = job_location.replace(state, '')
 				city = raw_city.replace(',', '').strip()

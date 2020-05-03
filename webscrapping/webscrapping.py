@@ -2,8 +2,8 @@ from bs4 import BeautifulSoup
 from datetime import date, datetime, timedelta
 from selenium import webdriver
 from time import perf_counter
-# from pyspark.sql import SparkSession
-# from pyspark.sql import Row
+from pyspark.sql import SparkSession
+from pyspark.sql import Row
 
 import hashlib
 from numpy.random import randint
@@ -21,17 +21,26 @@ class Indeed():
     @staticmethod
     def get_jobs(start, end, webdriver_location, location='Pune', query=''):
         '''
-            start: The starting page of search to retrieve data from
-            end: The ending page of search to retrieve data from
-            location: which particular place, city or country you want to retrive data of
+
+            The function is used to scrape out the data from Indeed.com site.
+            start: The starting page of search to retrieve data from.
+            end: The ending page of search to retrieve data from.
+            location: which particular place, city or country you want to retrive data of.
+            query: 
             
-            This is a static method hence will return the dataframe which is processed during the training
+            This is a static method hence will return the dataframe which is processed during the training.
+            
         '''
+        
         warnings.filterwarnings('ignore')
-        # spark = SparkSession.builder.config('spark.mongodb.input.uri', spark_mongo_server_connection_string).config('spark.mongodb.input.uri', spark_mongo_server_connection_string).appName('MongoDBIntegration').getOrCreate()
+        
+        spark = SparkSession.builder.config('spark.mongodb.input.uri', spark_mongo_server_connection_string).config('spark.mongodb.input.uri', spark_mongo_server_connection_string).appName('MongoDBIntegration').getOrCreate()
+        
         df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
+        
         driver = webdriver.Chrome(webdriver_location)
         driver.maximize_window()
+
         title = ''
         loc = ''
         company = ''
@@ -39,6 +48,7 @@ class Indeed():
         sponsored = ''
         time = ''
         job_desc = ''
+        
         for i in range(start, end):
             try:
                 driver.get('https://www.indeed.co.in/jobs?q='+ query +'&l='+location+'&start='+str(i))
@@ -150,13 +160,16 @@ class Indeed():
                     except:
                         time = str(date.today() - timedelta(days=randint(31, 181)))
                     driver.implicitly_wait(10)
+                    
                     try:
                         job_desc = driver.find_element_by_id('vjs-desc').text
                     except:
                         job_desc = None
+                    
                     df = df.append({'Title':title,'Location':loc,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
-                    # data = Row(dict(Title=str(title), Location=str(loc), Company=str(company), Salary=str(salary), Sponsored=str(sponsored), Description=str(job_desc), Time=str(time)))
-                    # spark.createDataFrame(data).write.format('com.mongodb.spark.sql.DefaultSource').option('uri', spark_mongo_server_connection_string).mode('append').save()
+                    
+                    data = Row(dict(Title=str(title), Location=str(loc), Company=str(company), Salary=str(salary), Sponsored=str(sponsored), Description=str(job_desc), Time=str(time)))
+                    spark.createDataFrame(data).write.format('com.mongodb.spark.sql.DefaultSource').option('uri', spark_mongo_server_connection_string).mode('append').save()
             except Exception as e:
                 print(e)
 
@@ -164,8 +177,11 @@ class Indeed():
                 try:
                     if not os.path.isdir(download_directory):
                         os.mkdir(download_directory)
+                    
                     n = download_directory + str(hashlib.md5(str(datetime.now()).encode()).hexdigest().encode()).replace("b'", '').replace("'", '') + '.xlsx'
+                    
                     df.to_excel(n, index=False)
                 except Exception as e:
                     print(e)
+        
         driver.close()

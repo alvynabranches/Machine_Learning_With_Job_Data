@@ -25,36 +25,43 @@ app.title = 'Big Data Project'
 
 app.layout = html.Main([
     html.Header(['Display Jobs'], style={'width':'100%','display':'block','text-align':'center'}),
+
     html.Div([
         html.Label(['Title'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='title', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
+
     html.Div([
         html.Label(['Location'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='location', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
+
     html.Div([
         html.Label(['Company'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='company', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
+
     html.Div([
         html.Label(['Description'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='description', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
+
     html.Div([
         html.Label(['Salary'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='salary', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
+
     html.Div([
         html.Label(['Time'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.Input(id='time', value='', style={'width': '85%', 'display': 'inline-table'})
     ], style={}),
     html.Br(),
+
     html.Div([
         html.Label(['Sort By'], style={'width': '10%', 'display': 'inline-table'}),
         dcc.RadioItems(
@@ -72,10 +79,13 @@ app.layout = html.Main([
         )
     ]),
     html.Br(),
+
     html.Div(
         id='displayarea', 
         style={'align': 'center', 'text-align': 'center'}
-    )
+    ),
+    html.Br()
+
 ])
 
 @app.callback(Output('displayarea', 'children'), 
@@ -90,6 +100,20 @@ app.layout = html.Main([
     ]
 )
 def show_filtered_data(title, location, company, description, salary, time, sortby):
+    '''
+
+        This function filters out the data for showing it on the website.
+        Contains both PyMongo functionalities and PySpark functionalities for demostration of both and compare out the
+        speed of both.
+        title:
+        location:
+        company:
+        description:
+        salary:
+        time:
+        sortby:
+
+    '''
     where = f'''Title like "%{title}%" and Location like "%{location}%" and Company like "%{company}%" 
         and Description like "%{description}%" and Salary like "%{salary}%" and Time like "%{time}%"'''
     if sortby == 'random':
@@ -142,6 +166,7 @@ def show_filtered_data(title, location, company, description, salary, time, sort
                 html.Td([x['Salary']]),
                 html.Td([x['Time']])
             ]))
+            
         return [html.Table(children=rows)]
 
 # app.run_server()
