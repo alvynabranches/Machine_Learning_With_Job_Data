@@ -23,6 +23,5 @@ from ml import views as mlviews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('bigdata/', bdviews.index),
-    path('ml/', mlviews.index),
-    
+    path('ml/', mlviews.index),   
 ]
