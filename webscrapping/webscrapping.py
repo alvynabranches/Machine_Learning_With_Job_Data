@@ -28,7 +28,7 @@ class Indeed():
             location: which particular place, city or country you want to retrive data of.
             query: 
             
-            This is a static method hence will return the dataframe which is processed during the training.
+            This is a static method and will return the dataframe which is processed during the training.
             
         '''
         
