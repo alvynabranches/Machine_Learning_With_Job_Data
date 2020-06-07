@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 from datetime import date, datetime, timedelta
-from selenium import webdriver
+from selenium.webdriver import Chrome, ChromeOptions
 from time import perf_counter
 from pyspark.sql import SparkSession
 from pyspark.sql import Row
@@ -37,9 +37,10 @@ class Indeed():
         spark = SparkSession.builder.config('spark.mongodb.input.uri', spark_mongo_server_connection_string).config('spark.mongodb.input.uri', spark_mongo_server_connection_string).appName('MongoDBIntegration').getOrCreate()
         
         df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
-        
-        driver = webdriver.Chrome(webdriver_location)
-        driver.maximize_window()
+        opts = ChromeOptions()
+        opts.headless = True
+        driver = Chrome(webdriver_location, options=opts)
+        # driver.maximize_window()
 
         title = ''
         loc = ''
