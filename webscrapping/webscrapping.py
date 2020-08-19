@@ -2,8 +2,8 @@ from bs4 import BeautifulSoup
 from datetime import date, datetime, timedelta
 from selenium.webdriver import Chrome, ChromeOptions
 from time import perf_counter
-from pyspark.sql import SparkSession
-from pyspark.sql import Row
+# from pyspark.sql import SparkSession
+# from pyspark.sql import Row
 
 import hashlib
 from numpy.random import randint
@@ -34,7 +34,7 @@ class Indeed():
         
         warnings.filterwarnings('ignore')
         
-        spark = SparkSession.builder.config('spark.mongodb.input.uri', spark_mongo_server_connection_string).config('spark.mongodb.input.uri', spark_mongo_server_connection_string).appName('MongoDBIntegration').getOrCreate()
+        # spark = SparkSession.builder.config('spark.mongodb.input.uri', spark_mongo_server_connection_string).config('spark.mongodb.input.uri', spark_mongo_server_connection_string).appName('MongoDBIntegration').getOrCreate()
         
         df = pd.DataFrame(columns=['Title','Location','Company','Salary','Sponsored','Description','Time'])
         opts = ChromeOptions()
@@ -42,13 +42,7 @@ class Indeed():
         driver = Chrome(webdriver_location, options=opts)
         # driver.maximize_window()
 
-        title = ''
-        loc = ''
-        company = ''
-        salary = ''
-        sponsored = ''
-        time = ''
-        job_desc = ''
+        title = ''; loc = ''; company = ''; salary = ''; sponsored = ''; time = ''; job_desc = ''
         
         for i in range(start, end):
             try:
@@ -169,8 +163,8 @@ class Indeed():
                     
                     df = df.append({'Title':title,'Location':loc,'Company':company,'Salary':salary,'Sponsored':sponsored,'Description':job_desc, 'Time':time},ignore_index=True)
                     
-                    data = Row(dict(Title=str(title), Location=str(loc), Company=str(company), Salary=str(salary), Sponsored=str(sponsored), Description=str(job_desc), Time=str(time)))
-                    spark.createDataFrame(data).write.format('com.mongodb.spark.sql.DefaultSource').option('uri', spark_mongo_server_connection_string).mode('append').save()
+                    # data = Row(dict(Title=str(title), Location=str(loc), Company=str(company), Salary=str(salary), Sponsored=str(sponsored), Description=str(job_desc), Time=str(time)))
+                    # spark.createDataFrame(data).write.format('com.mongodb.spark.sql.DefaultSource').option('uri', spark_mongo_server_connection_string).mode('append').save()
             except Exception as e:
                 print(e)
 
